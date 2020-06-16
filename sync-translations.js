@@ -2,22 +2,19 @@
 
 const fs = require("fs");
 const matchAll = require("match-all");
-const path = require("path");
 const YAWN = require("yawn-yaml/cjs");
 const YAML = require("yaml");
 
 const files = fs
-    .readdirSync(path.join(__dirname, "translations"))
+    .readdirSync("./translations")
     .filter(x => x.endsWith(".yaml"))
-    .filter(x => x.indexOf("base-en") < 0);
+    .filter(x => !x.includes("base-en"));
 
-const originalContents = fs
-    .readFileSync(path.join(__dirname, "translations", "base-en.yaml"))
-    .toString("utf-8");
+const originalContents = fs.readFileSync("./translations/base-en.yaml", "utf-8");
 
 const original = YAML.parse(originalContents);
 
-const placeholderRegexp = /<([a-zA-Z_0-9]+)>/gi;
+const placeholderRegexp = /<(\w+)>/gi;
 
 function match(originalObj, translatedObj, path = "/") {
     for (const key in originalObj) {
@@ -67,11 +64,12 @@ function match(originalObj, translatedObj, path = "/") {
     }
 }
 
-for (let i = 0; i < files.length; ++i) {
-    const filePath = path.join(__dirname, "translations", files[i]);
-    console.log("Processing", files[i]);
-    const translatedContents = fs.readFileSync(filePath).toString("utf-8");
-    const translated = YAML.parse(translatedContents);
+for (file of files) {
+    const filePath = `./translations/${file}`;
+    console.log("Processing", file);
+    const translatedContents = fs.readFileSync(filePath, "utf-8");
+    YAML.parse(translatedContents);
+
     const handle = new YAWN(translatedContents);
 
     const json = handle.json;
