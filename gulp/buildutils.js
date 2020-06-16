@@ -1,16 +1,16 @@
 const glob = require("glob");
-const execSync = require("child_process").execSync;
-const trim = require("trim");
-const fs = require("fs");
+const { execSync } = require("child_process");
+const { readFileSync } = require("fs");
 const path = require("path");
 
 module.exports = {
     getRevision: function (useLast = false) {
-        const commitHash = execSync("git rev-parse --short " + (useLast ? "HEAD^1" : "HEAD")).toString(
-            "ascii"
-        );
-        return commitHash.replace(/^\s+|\s+$/g, "");
+        const commitHash = execSync(`git rev-parse --short ${useLast ? "HEAD^1" : "HEAD"}`, {
+            encoding: "utf-8",
+        });
+        return commitHash.trim();
     },
+
     getAllResourceImages() {
         return glob
             .sync("res/**/*.@(png|svg|jpg)", { cwd: ".." })
@@ -36,15 +36,11 @@ module.exports = {
             .map(s => s.replace("res_built/sounds/", "res/sounds/"));
     },
 
-    getVersion() {
-        return trim(fs.readFileSync(path.join(__dirname, "..", "version")).toString());
-    },
+    getVersion: () => readFileSync(path.join(__dirname, "..", "version"), "utf-8").trim(),
 
     /**
      * @param {string} url
      * @param {string} commitHash
      */
-    cachebust(url, commitHash) {
-        return "/v/" + commitHash + "/" + url;
-    },
+    cachebust: (url, commitHash) => "/v/" + commitHash + "/" + url,
 };
