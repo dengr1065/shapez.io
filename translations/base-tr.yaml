@@ -674,6 +674,11 @@ settings:
                 fast: Fast
                 super_fast: Super Fast
                 extremely_fast: Extremely Fast
+        enableTunnelSmartplace:
+          title: Smart Tunnels
+          description: >-
+            When enabled, placing tunnels will automatically remove unnecessary belts.
+            This also enables to drag tunnels and excess tunnels will get removed.
 
 keybindings:
     title: Keybindings
@@ -739,6 +744,7 @@ keybindings:
         massSelectCut: Cut area
         exportScreenshot: Export whole Base as Image
         mapMoveFaster: Move Faster
+        lockBeltDirection: Place in straight Line
 
 about:
     title: About this Game

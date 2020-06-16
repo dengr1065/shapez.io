@@ -673,6 +673,11 @@ settings:
                 fast: 速
                 super_fast: 超速
                 extremely_fast: 超々速
+        enableTunnelSmartplace:
+          title: Smart Tunnels
+          description: >-
+            When enabled, placing tunnels will automatically remove unnecessary belts.
+            This also enables to drag tunnels and excess tunnels will get removed.
 
 keybindings:
     title: キー設定
@@ -738,6 +743,7 @@ keybindings:
         massSelectCut: 範囲カット
         exportScreenshot: 工場の全体像を画像出力
         mapMoveFaster: より速く移動
+        lockBeltDirection: Place in straight Line
 
 about:
     title: このゲームについて

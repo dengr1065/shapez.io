@@ -655,6 +655,11 @@ settings:
                 fast: Rychlá
                 super_fast: Hodně Rychlá
                 extremely_fast: Extrémně Rychlá
+        enableTunnelSmartplace:
+          title: Smart Tunnels
+          description: >-
+            When enabled, placing tunnels will automatically remove unnecessary belts.
+            This also enables to drag tunnels and excess tunnels will get removed.
 
 keybindings:
     title: Klávesové zkratky
@@ -720,6 +725,7 @@ keybindings:
         pasteLastBlueprint: Vložit poslední plán
         massSelectCut: Vyjmout oblast
         exportScreenshot: Exportovat celou základnu jako obrázek
+        lockBeltDirection: Place in straight Line
 
 about:
     title: O hře

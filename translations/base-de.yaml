@@ -674,6 +674,11 @@ settings:
                 fast: Schnell
                 super_fast: Sehr schnell
                 extremely_fast: Extrem schnell
+        enableTunnelSmartplace:
+          title: Smart Tunnels
+          description: >-
+            When enabled, placing tunnels will automatically remove unnecessary belts.
+            This also enables to drag tunnels and excess tunnels will get removed.
 
 keybindings:
     title: Tastenbelegung
@@ -739,6 +744,7 @@ keybindings:
         massSelectCut: Areal ausschneiden
         exportScreenshot: Ganze Fabrik als Foto exportieren
         mapMoveFaster: Schneller bewegen
+        lockBeltDirection: Place in straight Line
 
 about:
     title: Über dieses Spiel

@@ -673,7 +673,12 @@ settings:
             description: >-
                 Om du ønsker hint og opplæring mens du spiller. Skjuler også enkelte elementer i brukergrensesnittet inntil spesifike nivå for å enklere komme i gang med spillet.
 
-keybindings:
+
+        enableTunnelSmartplace:
+          title: Smart Tunnels
+          description: >-
+            When enabled, placing tunnels will automatically remove unnecessary belts.
+            This also enables to drag tunnels and excess tunnels will get removed.keybindings:
     title: Hurtigtaster
     hint: >-
         Tips: Husk å bruke CTRL, SHIFT and ALT! De gir deg flere plasseringsmuligheter.
@@ -737,6 +742,7 @@ keybindings:
         placementDisableAutoOrientation: Deaktiver automatisk orientering
         placeMultiple: Forbli i plasseringsmodus
         placeInverse: Inverter automatisk transportbånd orientering
+        lockBeltDirection: Place in straight Line
 
 about:
     title: Om dette spillet

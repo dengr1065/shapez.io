@@ -672,6 +672,11 @@ settings:
                 fast: Rápiada
                 super_fast: Muito rádida
                 extremely_fast: Extremamente rápida
+        enableTunnelSmartplace:
+          title: Smart Tunnels
+          description: >-
+            When enabled, placing tunnels will automatically remove unnecessary belts.
+            This also enables to drag tunnels and excess tunnels will get removed.
 
 keybindings:
     title: Atalhos
@@ -737,6 +742,7 @@ keybindings:
         massSelectCut: Cortar área
         exportScreenshot: Exportar a base como uma imagem
         mapMoveFaster: Move Faster
+        lockBeltDirection: Place in straight Line
 about:
     title: Sobre o jogo
     body: >-
