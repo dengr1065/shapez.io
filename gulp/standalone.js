@@ -8,7 +8,7 @@ const execSync = require("child_process").execSync;
 function gulptasksStandalone($, gulp, buildFolder) {
     const electronBaseDir = path.join("../electron");
 
-    const tempDestDir = path.join("..", "tmp_standalone_files");
+    const tempDestDir = "../tmp_standalone_files";
     const tempDestBuildDir = path.join(tempDestDir, "built");
 
     gulp.task("standalone.prepare.cleanup", () => {

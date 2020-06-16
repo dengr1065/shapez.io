@@ -3,7 +3,7 @@ const fs = require("fs");
 const buildUtils = require("./buildutils");
 
 function gulptasksCordova($, gulp, buildFolder) {
-    const cdvRes = path.join("..", "..", "res");
+    const cdvRes = "../../res";
 
     // Cleans up the app assets
     // Removes all temporary folders used while optimizing the assets
@@ -88,7 +88,7 @@ function gulptasksCordova($, gulp, buildFolder) {
     // Patches the config.xml by replacing the app id to app_beta
 
     gulp.task("patchConfigXML", cb => {
-        const configUrl = path.join("..", "..", "config.xml");
+        const configUrl = "../../config.xml";
         let configContent = fs.readFileSync(configUrl).toString();
         const version = buildUtils.getVersion();
         configContent = configContent.replace("%VERSION%", version);
@@ -99,7 +99,7 @@ function gulptasksCordova($, gulp, buildFolder) {
     });
 
     gulp.task("patchConfigXMLChangeStagingToProd", cb => {
-        const configUrl = path.join("..", "..", "config.xml");
+        const configUrl = "../../config.xml";
         let configContent = fs.readFileSync(configUrl).toString();
         configContent = configContent.replace(' id="io.shapez.app_beta" ', ' id="io.shapez.app" ');
         configContent = configContent.replace("<name>Shapez.io BETA</name>", "<name>Shapez.io</name>");

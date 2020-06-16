@@ -1,20 +1,19 @@
-const path = require("path");
 const fs = require("fs");
 
 function gulptasksDocs($, gulp, buildFolder) {
     gulp.task("docs.convertJsToTs", () => {
         return gulp
-            .src(path.join("..", "src", "js", "**", "*.js"))
+            .src("../src/js/**/*.js")
             .pipe(
                 $.rename(path => {
                     path.extname = ".ts";
                 })
             )
-            .pipe(gulp.dest(path.join("..", "tsc_temp")));
+            .pipe(gulp.dest("../tsc_temp"));
     });
 
     gulp.task("docs.copyTsconfigForHints", cb => {
-        const src = fs.readFileSync(path.join("..", "src", "js", "tsconfig.json")).toString();
+        const src = fs.readFileSync("../src/js/tsconfig.json").toString();
         const baseConfig = JSON.parse($.stripJsonComments(src));
 
         baseConfig.allowJs = false;
@@ -27,7 +26,7 @@ function gulptasksDocs($, gulp, buildFolder) {
         baseConfig.alwaysStrict = false;
         baseConfig.composite = true;
         baseConfig.outFile = "bundled-ts.js";
-        fs.writeFileSync(path.join("..", "tsc_temp", "tsconfig.json"), JSON.stringify(baseConfig));
+        fs.writeFileSync("../tsc_temp/tsconfig.json", JSON.stringify(baseConfig));
         cb();
     });
 
