@@ -673,12 +673,13 @@ settings:
             description: >-
                 Om du ønsker hint og opplæring mens du spiller. Skjuler også enkelte elementer i brukergrensesnittet inntil spesifike nivå for å enklere komme i gang med spillet.
 
-
         enableTunnelSmartplace:
-          title: Smart Tunnels
-          description: >-
-            When enabled, placing tunnels will automatically remove unnecessary belts.
-            This also enables to drag tunnels and excess tunnels will get removed.keybindings:
+            title: Smart Tunnels
+            description: >-
+                When enabled, placing tunnels will automatically remove unnecessary belts.
+                This also enables to drag tunnels and excess tunnels will get removed.
+
+keybindings:
     title: Hurtigtaster
     hint: >-
         Tips: Husk å bruke CTRL, SHIFT and ALT! De gir deg flere plasseringsmuligheter.

@@ -675,12 +675,13 @@ settings:
             description: >-
                 이것을 끄면 힌트와 튜토리얼이 나오지 않습니다. 또한 게임에 쉽게 들어가기 위해서 주어진 레벨에서 특정 UI 요소를 숨길 수도 있습니다.
 
-
         enableTunnelSmartplace:
-          title: Smart Tunnels
-          description: >-
-            When enabled, placing tunnels will automatically remove unnecessary belts.
-            This also enables to drag tunnels and excess tunnels will get removed.keybindings:
+            title: Smart Tunnels
+            description: >-
+                When enabled, placing tunnels will automatically remove unnecessary belts.
+                This also enables to drag tunnels and excess tunnels will get removed.
+
+keybindings:
     title: 키바인딩
     hint: >-
         팁: CTRL, SHIFT, ALT를 활용하세요. 건물을 배치할 때 유용합니다.

@@ -695,12 +695,13 @@ settings:
             description: >-
                 Oferuje porady i tutoriale podczas gry. Dodatkowo, chowa pewne elementy interfejsu by ułatwić poznanie gry.
 
-
         enableTunnelSmartplace:
-          title: Smart Tunnels
-          description: >-
-            When enabled, placing tunnels will automatically remove unnecessary belts.
-            This also enables to drag tunnels and excess tunnels will get removed.keybindings:
+            title: Smart Tunnels
+            description: >-
+                When enabled, placing tunnels will automatically remove unnecessary belts.
+                This also enables to drag tunnels and excess tunnels will get removed.
+
+keybindings:
     title: Klawiszologia
     hint: >-
         Wskazówka: Upewnij się, że wykorzystujesz CTRL, SHIFT i ALT! Pozwalają na różne metody kładzenia elementów.
