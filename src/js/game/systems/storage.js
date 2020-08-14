@@ -5,6 +5,7 @@ import { DrawParameters } from "../../core/draw_parameters";
 import { formatBigNumber, lerp } from "../../core/utils";
 import { Loader } from "../../core/loader";
 import { enumLayer } from "../root";
+import { BOOL_TRUE_SINGLETON, BOOL_FALSE_SINGLETON } from "../items/boolean_item";
 
 export class StorageSystem extends GameSystemWithFilter {
     constructor(root) {
@@ -38,7 +39,9 @@ export class StorageSystem extends GameSystemWithFilter {
             let targetAlpha = storageComp.storedCount > 0 ? 1 : 0;
             storageComp.overlayOpacity = lerp(storageComp.overlayOpacity, targetAlpha, 0.05);
 
+            const isFull = storageComp.storedCount == storageComp.maximumStorage;
             pinsComp.slots[0].value = storageComp.storedItem;
+            pinsComp.slots[1].value = isFull ? BOOL_TRUE_SINGLETON : BOOL_FALSE_SINGLETON;
         }
     }
 

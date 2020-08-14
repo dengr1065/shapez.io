@@ -151,6 +151,11 @@ export class MetaTrashBuilding extends MetaBuilding {
                                 pos: new Vector(1, 1),
                                 direction: enumDirection.right,
                                 type: enumPinSlotType.logicalEjector
+                            },
+                            {
+                                pos: new Vector(1, 0),
+                                direction: enumDirection.right,
+                                type: enumPinSlotType.logicalEjector
                             }
                         ]
                     }));
