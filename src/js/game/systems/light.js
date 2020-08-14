@@ -16,18 +16,19 @@ export class LightSystem extends GameSystemWithFilter {
             const entity = this.allEntities[i];
 
             const lightComp = entity.components.Light;
-            const pinsComp = entity.components.WiredPins;
+            const network = entity.components.WiredPins.slots[0].linkedNetwork;
 
-            const signal = pinsComp.slots[0].value;
+            if (network === null) continue;
+            const signal = network.currentValue;
 
             if (signal instanceof ColorItem) {
                 lightComp.color = signal.color;
                 continue;
             }
 
-            if (signal == BOOL_TRUE_SINGLETON) {
+            if (signal.equals(BOOL_TRUE_SINGLETON)) {
                 lightComp.color = enumColors.red;
-            } else if (signal == BOOL_FALSE_SINGLETON) {
+            } else if (signal.equals(BOOL_FALSE_SINGLETON)) {
                 lightComp.color = enumColors.white;
             } else {
                 lightComp.color = enumColors.uncolored;
@@ -51,10 +52,10 @@ export class LightSystem extends GameSystemWithFilter {
 
                     parameters.context.fillStyle = enumColorsToHexCode[entity.components.Light.color];
                     parameters.context.beginRoundedRect(
-                        origin.x * globalConfig.tileSize,
-                        origin.y * globalConfig.tileSize,
-                        globalConfig.tileSize,
-                        globalConfig.tileSize,
+                        origin.x * globalConfig.tileSize + 5,
+                        origin.y * globalConfig.tileSize + 5,
+                        globalConfig.tileSize - 10,
+                        globalConfig.tileSize - 10,
                         4
                     );
 

@@ -30,9 +30,9 @@ export class MetaLightBuilding extends MetaBuilding {
         return new Vector(1, 1);
     }
 
-    // getSprite() {
-    //     return null;
-    // }
+    getSprite() {
+        return null;
+    }
 
     /**
      * Creates the entity at the given location
