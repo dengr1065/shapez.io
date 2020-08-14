@@ -6,7 +6,6 @@ import { StaticMapEntityComponent } from "./components/static_map_entity";
 import { Entity } from "./entity";
 import { enumLayer, GameRoot } from "./root";
 import { getCodeFromBuildingData } from "./building_codes";
-import { MetaTrashBuilding } from "./buildings/trash";
 
 export const defaultBuildingVariant = "default";
 
@@ -184,7 +183,8 @@ export class MetaBuilding {
      * @param {string} param0.variant
      */
     createEntity({ root, origin, rotation, originalRotation, rotationVariant, variant }) {
-        const rotateable = this instanceof MetaTrashBuilding || this.isRotateable(variant);
+        // @todo dengr1065 - get id from somewhere else
+        const rotateable = this.getId() == "trash" || this.isRotateable(variant);
 
         const entity = new Entity(root);
         entity.layer = this.getLayer();
