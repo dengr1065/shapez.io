@@ -581,6 +581,11 @@ buildings:
             # TEMP
             description: Only leaves through items who match exactly the provided shape / color. If you put in a boolean 1, it leaves everything through, if you put in a 0 it will leave nothing through.
 
+    light:
+        default:
+            name: &light Light
+            description: Emits a solid color light based on pin input.
+
 storyRewards:
     # Those are the rewards gained from completing the store
     reward_cutter_and_trash:

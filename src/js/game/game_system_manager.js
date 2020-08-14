@@ -19,6 +19,7 @@ import { WireSystem } from "./systems/wire";
 import { ConstantSignalSystem } from "./systems/constant_signal";
 import { LogicGateSystem } from "./systems/logic_gate";
 import { LeverSystem } from "./systems/lever";
+import { LightSystem } from "./systems/light";
 
 const logger = createLogger("game_system_manager");
 
@@ -80,6 +81,9 @@ export class GameSystemManager {
             /** @type {LeverSystem} */
             lever: null,
 
+            /** @type {LightSystem} */
+            light: null,
+
             /* typehints:end */
         };
         this.systemUpdateOrder = [];
@@ -129,6 +133,8 @@ export class GameSystemManager {
 
         // WIRES section
         add("lever", LeverSystem);
+
+        add("light", LightSystem);
 
         // IMPORTANT: We have 2 phases: In phase 1 we compute the output values of all gates,
         // processors etc. In phase 2 we propagate it through the wires network

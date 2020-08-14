@@ -61,6 +61,7 @@ export const KEYMAPPINGS = {
         logic_gate: { keyCode: key("4") },
         lever: { keyCode: key("5") },
         filter: { keyCode: key("6") },
+        light: { keyCode: key("7") }
     },
 
     placement: {
