@@ -6,6 +6,7 @@ import { StaticMapEntityComponent } from "./components/static_map_entity";
 import { Entity } from "./entity";
 import { enumLayer, GameRoot } from "./root";
 import { getCodeFromBuildingData } from "./building_codes";
+import { MetaTrashBuilding } from "./buildings/trash";
 
 export const defaultBuildingVariant = "default";
 
@@ -129,9 +130,9 @@ export class MetaBuilding {
     getPreviewSprite(rotationVariant = 0, variant = defaultBuildingVariant) {
         return Loader.getSprite(
             "sprites/buildings/" +
-                this.id +
-                (variant === defaultBuildingVariant ? "" : "-" + variant) +
-                ".png"
+            this.id +
+            (variant === defaultBuildingVariant ? "" : "-" + variant) +
+            ".png"
         );
     }
 
@@ -142,9 +143,9 @@ export class MetaBuilding {
     getBlueprintSprite(rotationVariant = 0, variant = defaultBuildingVariant) {
         return Loader.getSprite(
             "sprites/blueprints/" +
-                this.id +
-                (variant === defaultBuildingVariant ? "" : "-" + variant) +
-                ".png"
+            this.id +
+            (variant === defaultBuildingVariant ? "" : "-" + variant) +
+            ".png"
         );
     }
 
@@ -183,13 +184,15 @@ export class MetaBuilding {
      * @param {string} param0.variant
      */
     createEntity({ root, origin, rotation, originalRotation, rotationVariant, variant }) {
+        const rotateable = this instanceof MetaTrashBuilding || this.isRotateable(variant);
+
         const entity = new Entity(root);
         entity.layer = this.getLayer();
         entity.addComponent(
             new StaticMapEntityComponent({
                 origin: new Vector(origin.x, origin.y),
-                rotation,
-                originalRotation,
+                rotation: rotateable ? rotation : 0,
+                originalRotation: rotateable ? originalRotation : 0,
                 tileSize: this.getDimensions(variant).copy(),
                 code: getCodeFromBuildingData(this, variant, rotationVariant),
             })
@@ -208,9 +211,9 @@ export class MetaBuilding {
     getSprite(rotationVariant, variant) {
         return Loader.getSprite(
             "sprites/buildings/" +
-                this.id +
-                (variant === defaultBuildingVariant ? "" : "-" + variant) +
-                ".png"
+            this.id +
+            (variant === defaultBuildingVariant ? "" : "-" + variant) +
+            ".png"
         );
     }
 
@@ -243,7 +246,7 @@ export class MetaBuilding {
      * @param {number} rotationVariant
      * @param {string} variant
      */
-    updateVariants(entity, rotationVariant, variant) {}
+    updateVariants(entity, rotationVariant, variant) { }
 
     // PRIVATE INTERFACE
 
