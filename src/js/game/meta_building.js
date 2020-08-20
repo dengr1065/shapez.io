@@ -136,9 +136,9 @@ export class MetaBuilding {
     getPreviewSprite(rotationVariant = 0, variant = defaultBuildingVariant) {
         return Loader.getSprite(
             "sprites/buildings/" +
-                this.id +
-                (variant === defaultBuildingVariant ? "" : "-" + variant) +
-                ".png"
+            this.id +
+            (variant === defaultBuildingVariant ? "" : "-" + variant) +
+            ".png"
         );
     }
 
@@ -149,9 +149,9 @@ export class MetaBuilding {
     getBlueprintSprite(rotationVariant = 0, variant = defaultBuildingVariant) {
         return Loader.getSprite(
             "sprites/blueprints/" +
-                this.id +
-                (variant === defaultBuildingVariant ? "" : "-" + variant) +
-                ".png"
+            this.id +
+            (variant === defaultBuildingVariant ? "" : "-" + variant) +
+            ".png"
         );
     }
 
@@ -198,13 +198,15 @@ export class MetaBuilding {
      * @param {string} param0.variant
      */
     createEntity({ root, origin, rotation, originalRotation, rotationVariant, variant }) {
+        const rotateable = this.getId() == "trash" || this.getIsRotateable(variant);
+
         const entity = new Entity(root);
         entity.layer = this.getLayer();
         entity.addComponent(
             new StaticMapEntityComponent({
                 origin: new Vector(origin.x, origin.y),
-                rotation,
-                originalRotation,
+                rotation: rotateable ? rotation : 0,
+                originalRotation: rotateable ? originalRotation : 0,
                 tileSize: this.getDimensions(variant).copy(),
                 code: getCodeFromBuildingData(this, variant, rotationVariant),
             })
@@ -223,9 +225,9 @@ export class MetaBuilding {
     getSprite(rotationVariant, variant) {
         return Loader.getSprite(
             "sprites/buildings/" +
-                this.id +
-                (variant === defaultBuildingVariant ? "" : "-" + variant) +
-                ".png"
+            this.id +
+            (variant === defaultBuildingVariant ? "" : "-" + variant) +
+            ".png"
         );
     }
 
@@ -258,7 +260,7 @@ export class MetaBuilding {
      * @param {number} rotationVariant
      * @param {string} variant
      */
-    updateVariants(entity, rotationVariant, variant) {}
+    updateVariants(entity, rotationVariant, variant) { }
 
     // PRIVATE INTERFACE
 
