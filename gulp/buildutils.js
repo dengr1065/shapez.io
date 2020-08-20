@@ -1,15 +1,13 @@
 const glob = require("glob");
 const execSync = require("child_process").execSync;
-const trim = require("trim");
-const fs = require("fs");
-const path = require("path");
+
+const { version } = require("../package.json");
 
 module.exports = {
     getRevision: function (useLast = false) {
-        const commitHash = execSync("git rev-parse --short " + (useLast ? "HEAD^1" : "HEAD")).toString(
-            "ascii"
-        );
-        return commitHash.replace(/^\s+|\s+$/g, "");
+        return execSync(`git rev-parse --short ${useLast ? "HEAD^1" : "HEAD"}`, {
+            encoding: "ascii"
+        }).trim();
     },
 
     getAllResourceImages() {
@@ -26,7 +24,7 @@ module.exports = {
     },
 
     getVersion() {
-        return trim(fs.readFileSync(path.join(__dirname, "..", "version")).toString());
+        return version;
     },
 
     /**

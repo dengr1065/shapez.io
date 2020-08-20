@@ -1,10 +1,9 @@
 {
     "name": "shapez.io",
-    "version": "1.0.0",
-    "main": "index.js",
-    "repository": "https://github.com/tobspr/shapez.io",
-    "author": "Tobias Springer <tobias.springer1@gmail.com>",
-    "license": "MIT",
+    "version": "0.1.1",
+    "repository": "https://github.com/dengr1065/shapez.io",
+    "author": "Danyjil Hryhorjev <dengr1065@gmail.com>",
+    "license": "GPL-3-or-later",
     "private": true,
     "scripts": {
         "dev": "cd gulp && yarn gulp main.serveDev",
@@ -14,8 +13,6 @@
         "publishOnItchWindows": "butler push tmp_standalone_files/shapez.io-standalone-win32-x64 tobspr/shapezio:windows --userversion-file version",
         "publishOnItchLinux": "butler push tmp_standalone_files/shapez.io-standalone-linux-x64 tobspr/shapezio:linux --userversion-file version",
         "publishOnItch": "yarn publishOnItchWindows && yarn publishOnItchLinux",
-        "publishOnSteam": "cd gulp/steampipe && ./upload.bat",
-        "publishStandalone": "yarn publishOnItch && yarn publishOnSteam",
         "publishWeb": "cd gulp && yarn main.deploy.prod",
         "publish": "yarn publishStandalone && yarn publishWeb",
         "syncTranslations": "node sync-translations.js"
@@ -93,7 +90,6 @@
         "prettier": "^2.0.4",
         "sass-unused": "^0.3.0",
         "strip-json-comments": "^3.0.1",
-        "trim": "^0.0.1",
         "yarn": "^1.22.4"
     }
 }
