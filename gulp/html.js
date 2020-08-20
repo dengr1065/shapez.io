@@ -112,7 +112,7 @@ function gulptasksHTML($, gulp, buildFolder) {
                         font-style: normal;
                         font-weight: normal;
                         font-display: swap;
-                        src: url('${cachebust("res/fonts/GameFont.woff2")}') format('woff2');
+                        src: url('${cachebust("res/fonts/FiraCode.woff2")}') format('woff2');
                     }
 
                     #ll_fp {
