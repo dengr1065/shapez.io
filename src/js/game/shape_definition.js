@@ -85,7 +85,7 @@ export class ShapeDefinition extends BasicSerializableObject {
             return errorCode;
         }
         const definition = ShapeDefinition.fromShortKey(data);
-        this.layers = /** @type {Array<ShapeLayer>} */ (definition.layers);
+        this.layers = definition.layers;
     }
 
     serialize() {
@@ -102,8 +102,7 @@ export class ShapeDefinition extends BasicSerializableObject {
 
         /**
          * The layers from bottom to top
-         * @type {Array<ShapeLayer>}
-         */
+         * @type {Array<ShapeLayer>} */
         this.layers = layers;
 
         /** @type {string} */
@@ -601,7 +600,7 @@ export class ShapeDefinition extends BasicSerializableObject {
             for (let quadrantIndex = 0; quadrantIndex < 4; ++quadrantIndex) {
                 const item = quadrants[quadrantIndex];
                 if (item) {
-                    item.color = colors[quadrantIndex];
+                    item.color = colors[quadrantIndex] || item.color;
                 }
             }
         }

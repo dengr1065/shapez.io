@@ -8,6 +8,8 @@ import { Entity } from "../entity";
 import { defaultBuildingVariant, MetaBuilding } from "../meta_building";
 import { GameRoot } from "../root";
 import { enumHubGoalRewards } from "../tutorial_goals";
+import { WiredPinsComponent, enumPinSlotType } from "../components/wired_pins";
+import { ProcessingRequirementComponent } from "../components/processing_requirement";
 
 /** @enum {string} */
 export const enumPainterVariants = { mirrored: "mirrored", double: "double", quad: "quad" };
@@ -119,6 +121,13 @@ export class MetaPainterBuilding extends MetaBuilding {
         switch (variant) {
             case defaultBuildingVariant:
             case enumPainterVariants.mirrored: {
+                if (entity.components.WiredPins) {
+                    entity.removeComponent(WiredPinsComponent)
+                }
+                if (entity.components.ProcessingRequirement) {
+                    entity.removeComponent(ProcessingRequirementComponent);
+                }
+
                 entity.components.ItemAcceptor.setSlots([
                     {
                         pos: new Vector(0, 0),
@@ -142,6 +151,13 @@ export class MetaPainterBuilding extends MetaBuilding {
                 break;
             }
             case enumPainterVariants.double: {
+                if (entity.components.WiredPins) {
+                    entity.removeComponent(WiredPinsComponent)
+                }
+                if (entity.components.ProcessingRequirement) {
+                    entity.removeComponent(ProcessingRequirementComponent);
+                }
+
                 entity.components.ItemAcceptor.setSlots([
                     {
                         pos: new Vector(0, 0),
@@ -169,6 +185,39 @@ export class MetaPainterBuilding extends MetaBuilding {
                 break;
             }
             case enumPainterVariants.quad: {
+                if (!entity.components.WiredPins) {
+                    entity.addComponent(new WiredPinsComponent({
+                        slots: [
+                            {
+                                pos: new Vector(0, 0),
+                                direction: enumDirection.bottom,
+                                type: enumPinSlotType.logicalAcceptor
+                            },
+                            {
+                                pos: new Vector(1, 0),
+                                direction: enumDirection.bottom,
+                                type: enumPinSlotType.logicalAcceptor
+                            },
+                            {
+                                pos: new Vector(2, 0),
+                                direction: enumDirection.bottom,
+                                type: enumPinSlotType.logicalAcceptor
+                            },
+                            {
+                                pos: new Vector(3, 0),
+                                direction: enumDirection.bottom,
+                                type: enumPinSlotType.logicalAcceptor
+                            },
+                        ]
+                    }));
+                }
+
+                if (!entity.components.ProcessingRequirement) {
+                    entity.addComponent(new ProcessingRequirementComponent({
+                        processorType: enumItemProcessorTypes.painterQuad
+                    }));
+                }
+
                 entity.components.ItemAcceptor.setSlots([
                     {
                         pos: new Vector(0, 0),
