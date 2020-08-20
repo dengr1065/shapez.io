@@ -6,86 +6,86 @@ export const LANGUAGES = {
         name: "English",
         data: null,
         code: "en",
-        region: "",
+        region: ""
     },
     "de": {
         name: "Deutsch",
         data: require("./built-temp/base-de.json"),
         code: "de",
-        region: "",
+        region: ""
     },
     "fr": {
         name: "Français",
         data: require("./built-temp/base-fr.json"),
         code: "fr",
-        region: "",
+        region: ""
     },
     "ja": {
         name: "日本語",
         data: require("./built-temp/base-ja.json"),
         code: "ja",
-        region: "",
+        region: ""
     },
     "pt-PT": {
         name: "Português (Portugal)",
         data: require("./built-temp/base-pt-PT.json"),
         code: "pt",
-        region: "PT",
+        region: "PT"
     },
     "pt-BR": {
         name: "Português (Brasil)",
         data: require("./built-temp/base-pt-BR.json"),
         code: "pt",
-        region: "BR",
+        region: "BR"
     },
     "ru": {
         name: "Русский",
         data: require("./built-temp/base-ru.json"),
         code: "ru",
-        region: "",
+        region: ""
     },
     "cs": {
         name: "Čeština",
         data: require("./built-temp/base-cz.json"),
         code: "cs",
-        region: "",
+        region: ""
     },
     "es-419": {
         name: "Español",
         data: require("./built-temp/base-es.json"),
         code: "es",
-        region: "",
+        region: ""
     },
     "pl": {
         name: "Polski",
         data: require("./built-temp/base-pl.json"),
         code: "pl",
-        region: "",
+        region: ""
     },
     "kor": {
         name: "한국어",
         data: require("./built-temp/base-kor.json"),
         code: "kor",
-        region: "",
+        region: ""
     },
     "nl": {
         name: "Nederlands",
         data: require("./built-temp/base-nl.json"),
         code: "nl",
-        region: "",
+        region: ""
     },
     "no": {
         name: "Norsk",
         data: require("./built-temp/base-no.json"),
         code: "no",
-        region: "",
+        region: ""
     },
 
     "tr": {
         name: "Türkçe",
         data: require("./built-temp/base-tr.json"),
         code: "tr",
-        region: "",
+        region: ""
     },
 
     "zh-CN": {
@@ -93,7 +93,7 @@ export const LANGUAGES = {
         name: "中文简体",
         data: require("./built-temp/base-zh-CN.json"),
         code: "zh",
-        region: "CN",
+        region: "CN"
     },
 
     "zh-TW": {
@@ -101,13 +101,13 @@ export const LANGUAGES = {
         name: "中文繁體",
         data: require("./built-temp/base-zh-TW.json"),
         code: "zh",
-        region: "TW",
+        region: "TW"
     },
 
     "sv": {
         name: "Svenska",
         data: require("./built-temp/base-sv.json"),
         code: "sv",
-        region: "",
-    },
+        region: ""
+    }
 };

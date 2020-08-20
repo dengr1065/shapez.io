@@ -148,7 +148,7 @@ export class Application {
             SettingsState,
             KeybindingsState,
             AboutState,
-            ChangelogState,
+            ChangelogState
         ];
 
         for (let i = 0; i < states.length; ++i) {

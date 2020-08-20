@@ -20,16 +20,16 @@ export const CHANGELOG = [
             "Show mouse and camera tile on debug overlay (F4) (by dengr)",
             "Fix tunnels entrances connecting to exits sometimes when they shouldn't",
             "The initial belt planner direction is now based on the cursor movement (by MizardX)",
-            "Fix preferred variant not getting saved when clicking on the hud (by Danacus)",
-        ],
+            "Fix preferred variant not getting saved when clicking on the hud (by Danacus)"
+        ]
     },
     {
         version: "1.1.19",
         date: "02.07.2020",
         entries: [
             "There are now notifications every 15 minutes in the demo version to buy the full version (For further details and the reason, check the #surveys channel in the Discord)",
-            "I'm still working on the wires update, I hope to release it mid july!",
-        ],
+            "I'm still working on the wires update, I hope to release it mid july!"
+        ]
     },
     {
         version: "1.1.18",
@@ -47,8 +47,8 @@ export const CHANGELOG = [
             "Fix smart tunnel placement deleting wrong tunnels (by mordof)",
             "Add setting (on by default) to store the last used rotation per building instead of globally storing it (by Magos)",
             "Added chinese (traditional) translation",
-            "Updated translations",
-        ],
+            "Updated translations"
+        ]
     },
     {
         version: "1.1.17",
@@ -66,8 +66,8 @@ export const CHANGELOG = [
             "Improve visibility of shape background in dark mode",
             "Added sound when destroying a building",
             "Added swedish translation",
-            "Update tutorial image for tier 2 tunnels to explain mix/match (by jimmyshadow1)",
-        ],
+            "Update tutorial image for tier 2 tunnels to explain mix/match (by jimmyshadow1)"
+        ]
     },
     {
         version: "1.1.16",
@@ -89,8 +89,8 @@ export const CHANGELOG = [
             "Fix hub marker being hidden by building info panel",
             "Disable dialog background blur since it can cause performance issues",
             "Added simplified chinese translations",
-            "Update translations (Thanks to all translators!)",
-        ],
+            "Update translations (Thanks to all translators!)"
+        ]
     },
     {
         version: "1.1.15",
@@ -100,8 +100,8 @@ export const CHANGELOG = [
             "Added continue button to main menu and add seperate 'New game' button (by jaysc)",
             "Added setting to disable smart tunnel placement introduced with the last update",
             "Added setting to disable vignette",
-            "Update translations",
-        ],
+            "Update translations"
+        ]
     },
     {
         version: "1.1.14",
@@ -111,8 +111,8 @@ export const CHANGELOG = [
             "You can now include shape short keys in markers to render shape icons instead of text!",
             "Added mirrored variant of the painter",
             "When placing tunnels, unnecessary belts inbetween are now removed!",
-            "You can now drag tunnels and they will automatically expand! (Just try it out, its intuitive)",
-        ],
+            "You can now drag tunnels and they will automatically expand! (Just try it out, its intuitive)"
+        ]
     },
     {
         version: "1.1.13",
@@ -122,16 +122,16 @@ export const CHANGELOG = [
             "Added Japanese translations",
             "Added Portuguese (Portugal) translations",
             "Updated icon for Spanish (Latin America) - It was showing a Spanish flag before",
-            "Updated existing translations",
-        ],
+            "Updated existing translations"
+        ]
     },
     {
         version: "1.1.12",
         date: "14.06.2020",
         entries: [
             "Huge performance improvements! The game should now run up to 60% faster!",
-            "Added norwegian translation",
-        ],
+            "Added norwegian translation"
+        ]
     },
     {
         version: "1.1.11",
@@ -147,8 +147,8 @@ export const CHANGELOG = [
             "Fix bug regarding number rounding",
             "Fix dialog text being hardly readable in dark theme",
             "Fix app not starting when the savegames were corrupted - there is now a better error message as well.",
-            "Further translation updates - Big thanks to all contributors!",
-        ],
+            "Further translation updates - Big thanks to all contributors!"
+        ]
     },
     {
         version: "1.1.10",
@@ -157,8 +157,8 @@ export const CHANGELOG = [
             "There are now linux builds on steam! Please report any issues in the Discord!",
             "Steam cloud saves are now available!",
             "Added and update more translations (Big thank you to all translators!)",
-            "Prevent invalid connection if existing underground tunnel entrance exists (by jaysc)",
-        ],
+            "Prevent invalid connection if existing underground tunnel entrance exists (by jaysc)"
+        ]
     },
     {
         version: "1.1.9",
@@ -170,8 +170,8 @@ export const CHANGELOG = [
             "Make it more clear when blueprints are unlocked when trying to use them",
             "Fix pinned shape icons not being visible in dark mode",
             "Fix being able to select buildings via hotkeys in map overview mode",
-            "Make shapes unpinnable in the upgrades tab (By hexy)",
-        ],
+            "Make shapes unpinnable in the upgrades tab (By hexy)"
+        ]
     },
     {
         version: "1.1.8",
@@ -179,13 +179,13 @@ export const CHANGELOG = [
         entries: [
             "You can now purchase the standalone on steam! <a href='https://steam.shapez.io' target='blank'>View steam page</a>",
             "Added ability to create markers in the demo, but only two.",
-            "Contest #01 has ended! I'll now work through the entries, select the 5 I like most and present them to the community to vote for!",
-        ],
+            "Contest #01 has ended! I'll now work through the entries, select the 5 I like most and present them to the community to vote for!"
+        ]
     },
     {
         version: "1.1.7",
         date: "04.06.2020",
-        entries: ["HOTFIX: Fix savegames not showing up on the standalone version"],
+        entries: ["HOTFIX: Fix savegames not showing up on the standalone version"]
     },
     {
         version: "1.1.6",
@@ -194,19 +194,19 @@ export const CHANGELOG = [
             "The steam release will happen on the <strong>7th of June</strong> - Be sure to add it to your wishlist! <a href='https://steam.shapez.io' target='blank'>View on steam</a>",
             "Fixed level complete dialog being blurred when the shop was opened before",
             "Standalone: Increased icon visibility for windows builds",
-            "Web version: Fixed firefox not loading the game when browsing in private mode",
-        ],
+            "Web version: Fixed firefox not loading the game when browsing in private mode"
+        ]
     },
 
     {
         version: "1.1.5",
         date: "03.06.2020",
-        entries: ["Added weekly contests!"],
+        entries: ["Added weekly contests!"]
     },
     {
         version: "1.1.4",
         date: "01.06.2020",
-        entries: ["Add 'interactive' tutorial for the first level to improve onboarding experience"],
+        entries: ["Add 'interactive' tutorial for the first level to improve onboarding experience"]
     },
     {
         version: "1.1.3",
@@ -215,8 +215,8 @@ export const CHANGELOG = [
             "Added setting to configure zoom / mouse wheel / touchpad sensitivity",
             "Fix belts being too slow when copied via blueprint (by Dimava)",
             "Allow binding mouse buttons to actions (by Dimava)",
-            "Increase readability of certain HUD elements",
-        ],
+            "Increase readability of certain HUD elements"
+        ]
     },
     {
         version: "1.1.2",
@@ -231,13 +231,13 @@ export const CHANGELOG = [
             "Show confirmation when deleting more than 100 buildings",
             "Reintroduce 'SPACE' keybinding to center on map",
             "Improved keybinding hints",
-            "Fixed some keybindings showing as 'undefined'",
-        ],
+            "Fixed some keybindings showing as 'undefined'"
+        ]
     },
     {
         version: "1.1.1",
         date: "28.05.2020",
-        entries: ["Fix crash when 'Show Hints' setting was turned off"],
+        entries: ["Fix crash when 'Show Hints' setting was turned off"]
     },
     {
         version: "1.1.0",
@@ -257,8 +257,8 @@ export const CHANGELOG = [
             "Swapped shape order for painting upgrades",
             "Allow changing all keybindings, including CTRL, ALT and SHIFT (by Dimava)",
             "Fix cycling through keybindings selecting locked buildings as well (by Dimava)",
-            "There is now a github action, checking all pull requests with eslint. (by mrHedgehog)",
-        ],
+            "There is now a github action, checking all pull requests with eslint. (by mrHedgehog)"
+        ]
     },
     {
         version: "1.0.4",
@@ -266,15 +266,15 @@ export const CHANGELOG = [
         entries: [
             "Reduce cost of first painting upgrade, and change 'Shape Processing' to 'Cutting, Rotating & Stacking'",
             "Add dialog after completing level 2 to check out the upgrades tab.",
-            "Allow changing the keybindings in the demo version",
-        ],
+            "Allow changing the keybindings in the demo version"
+        ]
     },
     {
         version: "1.0.3",
         date: "24.05.2020",
         entries: [
-            "Reduced the amount of shapes required for the first 5 levels to make it easier to get into the game.",
-        ],
+            "Reduced the amount of shapes required for the first 5 levels to make it easier to get into the game."
+        ]
     },
     {
         version: "1.0.2",
@@ -289,12 +289,12 @@ export const CHANGELOG = [
             "Added 'multiplace' setting which is equivalent to holding SHIFT all the time",
             "Added keybindings to zoom in / zoom out",
             "Tunnels now also show connection lines to tunnel exits, instead of just tunnel entries",
-            "Lots of minor fixes and improvements",
-        ],
+            "Lots of minor fixes and improvements"
+        ]
     },
     {
         version: "1.0.1",
         date: "21.05.2020",
-        entries: ["Initial release!"],
-    },
+        entries: ["Initial release!"]
+    }
 ];
