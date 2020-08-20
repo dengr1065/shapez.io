@@ -8,23 +8,6 @@ const path = require("path");
 const deleteEmpty = require("delete-empty");
 const execSync = require("child_process").execSync;
 
-const lfsOutput = execSync("git lfs install", { encoding: "utf-8" });
-if (!lfsOutput.toLowerCase().includes("git lfs initialized")) {
-    console.error(`
-    Git LFS is not installed, unable to build.
-
-    To install Git LFS on Linux:
-      - Arch:
-        sudo pacman -S git-lfs
-      - Debian/Ubuntu:
-        sudo apt install git-lfs
-
-    For other systems, see:
-    https://github.com/git-lfs/git-lfs/wiki/Installation
-    `);
-    process.exit(1);
-}
-
 // Load other plugins dynamically
 const $ = require("gulp-load-plugins")({
     scope: ["devDependencies"],
@@ -35,13 +18,7 @@ const $ = require("gulp-load-plugins")({
 
 const envVars = [
     "SHAPEZ_CLI_SERVER_HOST",
-    // "SHAPEZ_CLI_PHONEGAP_KEY",
-    "SHAPEZ_CLI_ALPHA_FTP_USER",
-    "SHAPEZ_CLI_ALPHA_FTP_PW",
-    "SHAPEZ_CLI_STAGING_FTP_USER",
-    "SHAPEZ_CLI_STAGING_FTP_PW",
-    "SHAPEZ_CLI_LIVE_FTP_USER",
-    "SHAPEZ_CLI_LIVE_FTP_PW",
+    "SHAPEZ_CLI_SSH_USER"
 ];
 
 for (let i = 0; i < envVars.length; ++i) {
