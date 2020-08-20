@@ -88,7 +88,7 @@ function gulptasksHTML($, gulp, buildFolder) {
                     // Do not need to preload in app or standalone
                     if (!hasLocalFiles) {
                         // Preload essentials
-                        const preloads = ["fonts/GameFont.woff2"];
+                        const preloads = ["fonts/FiraMono.woff2"];
 
                         preloads.forEach(src => {
                             const preloadLink = document.createElement("link");
@@ -112,7 +112,7 @@ function gulptasksHTML($, gulp, buildFolder) {
                         font-style: normal;
                         font-weight: normal;
                         font-display: swap;
-                        src: url('${cachebust("res/fonts/FiraCode.woff2")}') format('woff2');
+                        src: url('${cachebust("res/fonts/FiraMono.woff2")}') format('woff2');
                     }
 
                     #ll_fp {
