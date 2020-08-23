@@ -95,8 +95,6 @@ export class StateManager {
         this.currentState.internalEnterCallback(payload);
         this.currentState.onResized(this.app.screenWidth, this.app.screenHeight);
 
-        this.app.analytics.trackStateEnter(key);
-
         window.history.pushState(
             {
                 key,

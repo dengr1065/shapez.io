@@ -30,17 +30,6 @@ export class PlatformWrapperInterface {
     }
 
     /**
-     * Whether the user has unlimited savegames
-     */
-    getHasUnlimitedSavegames() {
-        return true;
-    }
-
-    getShowDemoBadges() {
-        return false;
-    }
-
-    /**
      * Returns the strength of touch pans with the mouse
      */
     getTouchPanStrength() {
@@ -71,13 +60,6 @@ export class PlatformWrapperInterface {
 
     getScreenScale() {
         return Math.min(window.innerWidth, window.innerHeight) / 1024.0;
-    }
-
-    /**
-     * Should return if this platform supports ads at all
-     */
-    getSupportsAds() {
-        return false;
     }
 
     /**

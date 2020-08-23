@@ -1,6 +1,6 @@
 import { BaseHUDPart } from "../base_hud_part";
 import { KEYMAPPINGS } from "../../key_action_mapper";
-import { IS_DEMO, globalConfig } from "../../../core/config";
+import { globalConfig } from "../../../core/config";
 import { T } from "../../../translations";
 import { createLogger } from "../../../core/logging";
 import { StaticMapEntityComponent } from "../../components/static_map_entity";
@@ -12,18 +12,13 @@ import { Rectangle } from "../../../core/rectangle";
 const logger = createLogger("screenshot_exporter");
 
 export class HUDScreenshotExporter extends BaseHUDPart {
-    createElements() {}
+    createElements() { }
 
     initialize() {
         this.root.keyMapper.getBinding(KEYMAPPINGS.ingame.exportScreenshot).add(this.startExport, this);
     }
 
     startExport() {
-        if (IS_DEMO) {
-            this.root.hud.parts.dialogs.showFeatureRestrictionInfo(T.demo.features.exportingBase);
-            return;
-        }
-
         const { ok } = this.root.hud.parts.dialogs.showInfo(
             T.dialogs.exportScreenshotWarning.title,
             T.dialogs.exportScreenshotWarning.desc,

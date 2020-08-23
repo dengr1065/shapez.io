@@ -30,26 +30,9 @@ function gulptasksJS($, gulp, buildFolder, browserSync) {
             .pipe(gulp.dest(buildFolder));
     });
 
-    //// STAGING
-
-    gulp.task("js.staging", () => {
-        return gulp
-            .src("../src/js/main.js")
-            .pipe(
-                $.webpackStream(
-                    requireUncached("./webpack.production.config.js")({
-                        enableAssert: true,
-                        environment: "staging",
-                        es6: true,
-                    })
-                )
-            )
-            .pipe(gulp.dest(buildFolder));
-    });
-
     //// PROD
 
-    gulp.task("js.prod", () => {
+    gulp.task("js", () => {
         return gulp
             .src("../src/js/main.js")
             .pipe(
@@ -111,7 +94,7 @@ function gulptasksJS($, gulp, buildFolder, browserSync) {
             .pipe(gulp.dest(buildFolder));
     });
 
-    gulp.task("js.standalone-prod", () => {
+    gulp.task("js.standalone", () => {
         return gulp
             .src("../src/js/main.js")
             .pipe(

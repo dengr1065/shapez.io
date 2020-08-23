@@ -15,7 +15,7 @@ import { HUDKeybindingOverlay } from "./parts/keybinding_overlay";
 import { HUDUnlockNotification } from "./parts/unlock_notification";
 import { HUDGameMenu } from "./parts/game_menu";
 import { HUDShop } from "./parts/shop";
-import { IS_MOBILE, globalConfig, IS_DEMO } from "../../core/config";
+import { IS_MOBILE, globalConfig } from "../../core/config";
 import { HUDMassSelector } from "./parts/mass_selector";
 import { HUDVignetteOverlay } from "./parts/vignette_overlay";
 import { HUDStatistics } from "./parts/statistics";
@@ -27,7 +27,6 @@ import { HUDSettingsMenu } from "./parts/settings_menu";
 import { HUDDebugInfo } from "./parts/debug_info";
 import { HUDEntityDebugger } from "./parts/entity_debugger";
 import { KEYMAPPINGS } from "../key_action_mapper";
-import { HUDWatermark } from "./parts/watermark";
 import { HUDModalDialogs } from "./parts/modal_dialogs";
 import { HUDPartTutorialHints } from "./parts/tutorial_hints";
 import { HUDWaypoints } from "./parts/waypoints";
@@ -107,10 +106,6 @@ export class GameHUD {
 
         if (G_IS_DEV && globalConfig.debug.enableEntityInspector) {
             this.parts.entityDebugger = new HUDEntityDebugger(this.root);
-        }
-
-        if (IS_DEMO) {
-            this.parts.watermark = new HUDWatermark(this.root);
         }
 
         if (G_IS_DEV && globalConfig.debug.renderChanges) {
@@ -253,7 +248,7 @@ export class GameHUD {
      * @param {DrawParameters} parameters
      */
     drawOverlays(parameters) {
-        const partsOrder = ["waypoints", "watermark", "wireInfo"];
+        const partsOrder = ["waypoints", "wireInfo"];
 
         for (let i = 0; i < partsOrder.length; ++i) {
             if (this.parts[partsOrder[i]]) {

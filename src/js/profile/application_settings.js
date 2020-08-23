@@ -7,7 +7,6 @@ import { BoolSetting, EnumSetting, BaseSetting } from "./setting_types";
 import { createLogger } from "../core/logging";
 import { ExplainedResult } from "../core/explained_result";
 import { THEMES, THEME, applyGameTheme } from "../game/theme";
-import { IS_DEMO } from "../core/config";
 import { T } from "../translations";
 import { LANGUAGES } from "../languages";
 
@@ -176,7 +175,7 @@ export const allApplicationSettings = [
                 app.platformWrapper.setFullscreen(value);
             }
         },
-        !IS_DEMO
+        G_IS_STANDALONE || G_IS_DEV
     ),
 
     new BoolSetting(
@@ -188,7 +187,7 @@ export const allApplicationSettings = [
         (app, value) => null
     ),
 
-    new BoolSetting("offerHints", enumCategories.userInterface, (app, value) => {}),
+    new BoolSetting("offerHints", enumCategories.userInterface, (app, value) => { }),
 
     new EnumSetting("theme", {
         options: Object.keys(THEMES),
@@ -203,8 +202,7 @@ export const allApplicationSettings = [
             (app, id) => {
                 applyGameTheme(id);
                 document.documentElement.setAttribute("data-theme", id);
-            },
-        enabled: !IS_DEMO,
+            }
     }),
 
     new EnumSetting("autosaveInterval", {
@@ -239,15 +237,15 @@ export const allApplicationSettings = [
         textGetter: multiplier => T.settings.labels.movementSpeed.speeds[multiplier.id],
         category: enumCategories.advanced,
         restartRequired: false,
-        changeCb: (app, id) => {},
+        changeCb: (app, id) => { },
     }),
 
-    new BoolSetting("alwaysMultiplace", enumCategories.advanced, (app, value) => {}),
-    new BoolSetting("enableTunnelSmartplace", enumCategories.advanced, (app, value) => {}),
-    new BoolSetting("vignette", enumCategories.userInterface, (app, value) => {}),
-    new BoolSetting("compactBuildingInfo", enumCategories.userInterface, (app, value) => {}),
-    new BoolSetting("disableCutDeleteWarnings", enumCategories.advanced, (app, value) => {}),
-    new BoolSetting("rotationByBuilding", enumCategories.advanced, (app, value) => {}),
+    new BoolSetting("alwaysMultiplace", enumCategories.advanced, (app, value) => { }),
+    new BoolSetting("enableTunnelSmartplace", enumCategories.advanced, (app, value) => { }),
+    new BoolSetting("vignette", enumCategories.userInterface, (app, value) => { }),
+    new BoolSetting("compactBuildingInfo", enumCategories.userInterface, (app, value) => { }),
+    new BoolSetting("disableCutDeleteWarnings", enumCategories.advanced, (app, value) => { }),
+    new BoolSetting("rotationByBuilding", enumCategories.advanced, (app, value) => { }),
 
     new EnumSetting("refreshRate", {
         options: ["60", "75", "100", "120", "144", "165", "250", "500"],
@@ -255,13 +253,12 @@ export const allApplicationSettings = [
         textGetter: rate => rate + " Hz",
         category: enumCategories.performance,
         restartRequired: false,
-        changeCb: (app, id) => {},
-        enabled: !IS_DEMO,
+        changeCb: (app, id) => { }
     }),
 
-    new BoolSetting("lowQualityMapResources", enumCategories.performance, (app, value) => {}),
-    new BoolSetting("disableTileGrid", enumCategories.performance, (app, value) => {}),
-    new BoolSetting("lowQualityTextures", enumCategories.performance, (app, value) => {}),
+    new BoolSetting("lowQualityMapResources", enumCategories.performance, (app, value) => { }),
+    new BoolSetting("disableTileGrid", enumCategories.performance, (app, value) => { }),
+    new BoolSetting("lowQualityTextures", enumCategories.performance, (app, value) => { }),
 ];
 
 export function getApplicationSettingById(id) {

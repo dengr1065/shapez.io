@@ -1,4 +1,4 @@
-import { globalConfig, IS_DEMO, IS_MOBILE } from "../../core/config";
+import { globalConfig, IS_MOBILE } from "../../core/config";
 import { createLogger } from "../../core/logging";
 import { queryParamOptions } from "../../core/query_parameters";
 import { clamp } from "../../core/utils";
@@ -16,9 +16,7 @@ export class PlatformWrapperImplBrowser extends PlatformWrapperInterface {
             id: "shapezio-website",
             iframed: false,
             externalLinks: true,
-            iogLink: true,
-            unlimitedSavegames: IS_DEMO ? false : true,
-            showDemoBadge: IS_DEMO,
+            iogLink: true
         };
 
         if (!G_IS_STANDALONE && queryParamOptions.embedProvider) {
@@ -35,8 +33,6 @@ export class PlatformWrapperImplBrowser extends PlatformWrapperInterface {
                 case "iogames.space": {
                     this.embedProvider.id = "iogames.space";
                     this.embedProvider.iogLink = true;
-                    this.embedProvider.unlimitedSavegames = true;
-                    this.embedProvider.showDemoBadge = false;
                     break;
                 }
 
@@ -106,14 +102,6 @@ export class PlatformWrapperImplBrowser extends PlatformWrapperInterface {
                 resolve();
             };
         });
-    }
-
-    getHasUnlimitedSavegames() {
-        return this.embedProvider.unlimitedSavegames;
-    }
-
-    getShowDemoBadges() {
-        return this.embedProvider.showDemoBadge;
     }
 
     getId() {

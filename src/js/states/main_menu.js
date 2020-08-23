@@ -1,6 +1,6 @@
 import { GameState } from "../core/game_state";
 import { cachebust } from "../core/cachebust";
-import { globalConfig, IS_DEMO, THIRDPARTY_URLS } from "../core/config";
+import { globalConfig, THIRDPARTY_URLS } from "../core/config";
 import {
     makeDiv,
     makeButtonElement,
@@ -43,14 +43,6 @@ export class MainMenuState extends GameState {
     }
 
     getInnerHTML() {
-        const bannerHtml = `
-            <h3>${T.demoBanners.title}</h3>
-
-            <p>${T.demoBanners.intro}</p>
-
-            <a href="#" class="steamLink" target="_blank">Get the shapez.io standalone!</a>
-        `;
-
         return `
 
             <div class="topButtons">
@@ -77,10 +69,9 @@ export class MainMenuState extends GameState {
             </div>
 
 
-            <div class="mainWrapper ${IS_DEMO ? "demo" : "noDemo"}">
+            <div class="mainWrapper">
 
                 <div class="sideContainer">
-                    ${IS_DEMO ? `<div class="standaloneBanner">${bannerHtml}</div>` : ""}
                 </div>
 
                 <div class="mainContainer">
@@ -125,16 +116,6 @@ export class MainMenuState extends GameState {
     }
 
     requestImportSavegame() {
-        if (
-            IS_DEMO &&
-            this.app.savegameMgr.getSavegamesMetaData().length > 0 &&
-            !this.app.platformWrapper.getHasUnlimitedSavegames()
-        ) {
-            this.app.analytics.trackUiClick("importgame_slot_limit_show");
-            this.dialogs.showWarning(T.dialogs.oneSavegameLimit.title, T.dialogs.oneSavegameLimit.desc);
-            return;
-        }
-
         var input = document.createElement("input");
         input.type = "file";
         input.accept = ".bin";
@@ -143,7 +124,6 @@ export class MainMenuState extends GameState {
             const file = input.files[0];
             if (file) {
                 waitNextFrame().then(() => {
-                    this.app.analytics.trackUiClick("import_savegame");
                     const closeLoader = this.dialogs.showLoadingDialog();
                     const reader = new FileReader();
                     reader.addEventListener("load", event => {
@@ -307,7 +287,6 @@ export class MainMenuState extends GameState {
     }
 
     onSteamLinkClicked() {
-        this.app.analytics.trackUiClick("main_menu_steam_link_2");
         this.app.platformWrapper.openExternalLink(THIRDPARTY_URLS.standaloneStorePage);
         return false;
     }
@@ -321,12 +300,10 @@ export class MainMenuState extends GameState {
     }
 
     onRedditClicked() {
-        this.app.analytics.trackUiClick("main_menu_reddit_link");
         this.app.platformWrapper.openExternalLink(THIRDPARTY_URLS.reddit);
     }
 
     onLanguageChooseClicked() {
-        this.app.analytics.trackUiClick("choose_language");
         const setting = /** @type {EnumSetting} */ (getApplicationSettingById("language"));
 
         const { optionSelected } = this.dialogs.showOptionChooser(T.settings.labels.language.title, {
@@ -415,8 +392,6 @@ export class MainMenuState extends GameState {
      * @param {SavegameMetadata} game
      */
     resumeGame(game) {
-        this.app.analytics.trackUiClick("resume_game");
-
         const savegame = this.app.savegameMgr.getSavegameById(game.internalId);
         savegame
             .readAsync()
@@ -437,8 +412,6 @@ export class MainMenuState extends GameState {
      * @param {SavegameMetadata} game
      */
     deleteGame(game) {
-        this.app.analytics.trackUiClick("delete_game");
-
         const signals = this.dialogs.showWarning(
             T.dialogs.confirmSavegameDelete.title,
             T.dialogs.confirmSavegameDelete.text,
@@ -465,8 +438,6 @@ export class MainMenuState extends GameState {
      * @param {SavegameMetadata} game
      */
     downloadGame(game) {
-        this.app.analytics.trackUiClick("download_game");
-
         const savegame = this.app.savegameMgr.getSavegameById(game.internalId);
         savegame.readAsync().then(() => {
             const data = ReadWriteProxy.serializeObject(savegame.currentData);
@@ -479,24 +450,12 @@ export class MainMenuState extends GameState {
     }
 
     onTranslationHelpLinkClicked() {
-        this.app.analytics.trackUiClick("translation_help_link");
         this.app.platformWrapper.openExternalLink(
             "https://github.com/tobspr/shapez.io/blob/master/translations"
         );
     }
 
     onPlayButtonClicked() {
-        if (
-            IS_DEMO &&
-            this.app.savegameMgr.getSavegamesMetaData().length > 0 &&
-            !this.app.platformWrapper.getHasUnlimitedSavegames()
-        ) {
-            this.app.analytics.trackUiClick("startgame_slot_limit_show");
-            this.dialogs.showWarning(T.dialogs.oneSavegameLimit.title, T.dialogs.oneSavegameLimit.desc);
-            return;
-        }
-
-        this.app.analytics.trackUiClick("startgame");
         const savegame = this.app.savegameMgr.createNewSavegame();
 
         this.moveToState("InGameState", {

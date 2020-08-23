@@ -15,21 +15,9 @@ function gulptasksFTP($, gulp, buildFolder) {
     ];
 
     const credentials = {
-        alpha: {
-            host: process.env.SHAPEZ_CLI_SERVER_HOST,
-            user: process.env.SHAPEZ_CLI_ALPHA_FTP_USER,
-            pass: process.env.SHAPEZ_CLI_ALPHA_FTP_PW,
-        },
-        staging: {
-            host: process.env.SHAPEZ_CLI_SERVER_HOST,
-            user: process.env.SHAPEZ_CLI_STAGING_FTP_USER,
-            pass: process.env.SHAPEZ_CLI_STAGING_FTP_PW,
-        },
-        prod: {
-            host: process.env.SHAPEZ_CLI_SERVER_HOST,
-            user: process.env.SHAPEZ_CLI_LIVE_FTP_USER,
-            pass: process.env.SHAPEZ_CLI_LIVE_FTP_PW,
-        },
+        host: process.env.SHAPEZ_CLI_SERVER_HOST,
+        user: process.env.SHAPEZ_CLI_SFTP_USER,
+        pass: process.env.SHAPEZ_CLI_SFTP_PASS
     };
 
     // Write the "commit.txt" file
@@ -56,46 +44,42 @@ function gulptasksFTP($, gulp, buildFolder) {
         path.join(buildFolder, "!**/index.html"),
     ];
 
-    for (const deployEnv of ["alpha", "prod", "staging"]) {
-        const deployCredentials = credentials[deployEnv];
-
-        gulp.task(`ftp.upload.${deployEnv}.game`, () => {
-            return gulp
-                .src(gameSrcGlobs, { base: buildFolder })
-                .pipe(
-                    $.rename(pth => {
-                        pth.dirname = path.join("v", commitHash, pth.dirname);
-                    })
-                )
-                .pipe($.sftp(deployCredentials));
-        });
-
-        gulp.task(`ftp.upload.${deployEnv}.indexHtml`, () => {
-            return gulp
-                .src([path.join(buildFolder, "index.html"), path.join(buildFolder, "version.json")], {
-                    base: buildFolder,
+    gulp.task(`ftp.upload.game`, () => {
+        return gulp
+            .src(gameSrcGlobs, { base: buildFolder })
+            .pipe(
+                $.rename(pth => {
+                    pth.dirname = path.join("v", commitHash, pth.dirname);
                 })
-                .pipe($.sftp(deployCredentials));
-        });
-
-        gulp.task(`ftp.upload.${deployEnv}.additionalFiles`, () => {
-            return gulp
-                .src(additionalFiles, { base: additionalFolder }) //
-                .pipe($.sftp(deployCredentials));
-        });
-
-        gulp.task(
-            `ftp.upload.${deployEnv}`,
-            gulp.series(
-                "ftp.writeVersion",
-                `ftp.upload.${deployEnv}.game`,
-                `ftp.upload.${deployEnv}.indexHtml`,
-                `ftp.upload.${deployEnv}.additionalFiles`
             )
-        );
-    }
+            .pipe($.sftp(credentials));
+    });
+
+    gulp.task(`ftp.upload.indexHtml`, () => {
+        return gulp
+            .src([path.join(buildFolder, "index.html"), path.join(buildFolder, "version.json")], {
+                base: buildFolder
+            })
+            .pipe($.sftp(credentials));
+    });
+
+    gulp.task(`ftp.upload.additionalFiles`, () => {
+        return gulp
+            .src(additionalFiles, { base: additionalFolder })
+            .pipe($.sftp(credentials));
+    });
+
+    gulp.task(
+        "ftp.upload",
+        gulp.series(
+            "ftp.writeVersion",
+            "ftp.upload.game",
+            "ftp.upload.indexHtml",
+            "ftp.upload.additionalFiles"
+        )
+    );
 }
 
 module.exports = {
-    gulptasksFTP,
+    gulptasksFTP
 };

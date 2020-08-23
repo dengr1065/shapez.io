@@ -1,5 +1,5 @@
 import { makeOffscreenBuffer } from "../../../core/buffer_utils";
-import { globalConfig, IS_DEMO } from "../../../core/config";
+import { globalConfig } from "../../../core/config";
 import { DrawParameters } from "../../../core/draw_parameters";
 import { Loader } from "../../../core/loader";
 import { DialogWithForm } from "../../../core/modal_dialog_elements";
@@ -44,11 +44,11 @@ export class HUDWaypoints extends BaseHUDPart {
                 `
             <strong class='title'>${T.ingame.waypoints.waypoints}</strong>
             <span class='desc'>${T.ingame.waypoints.description.replace(
-                "<keybinding>",
-                `<code class='keybinding'>${this.root.keyMapper
-                    .getBinding(KEYMAPPINGS.navigation.createMarker)
-                    .getKeyCodeString()}</code>`
-            )}</span>
+                    "<keybinding>",
+                    `<code class='keybinding'>${this.root.keyMapper
+                        .getBinding(KEYMAPPINGS.navigation.createMarker)
+                        .getKeyCodeString()}</code>`
+                )}</span>
         `
             );
         }
@@ -297,6 +297,10 @@ export class HUDWaypoints extends BaseHUDPart {
                 // Show info that you can have only N markers in the demo,
                 // actually show this *after* entering the name so you want the
                 // standalone even more (I'm evil :P)
+
+                // dengr is talking, CEASE YOUR EVIL
+
+                /*
                 if (IS_DEMO && this.waypoints.length > 2) {
                     this.root.hud.parts.dialogs.showFeatureRestrictionInfo(
                         "",
@@ -304,6 +308,7 @@ export class HUDWaypoints extends BaseHUDPart {
                     );
                     return;
                 }
+                */
 
                 // Actually create the waypoint
                 this.addWaypoint(markerNameInput.getValue(), center);

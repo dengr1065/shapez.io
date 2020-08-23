@@ -47,9 +47,6 @@ export class MinerSystem extends GameSystemWithFilter {
 
             if (this.root.time.isIngameTimerExpired(minerComp.lastMiningTime, 1 / miningSpeed)) {
                 if (this.tryPerformMinerEject(entity, minerComp.cachedMinedItem)) {
-                    // Analytics hook
-                    this.root.signals.itemProduced.dispatch(minerComp.cachedMinedItem);
-
                     // Actually mine
                     minerComp.lastMiningTime = this.root.time.now();
                 }

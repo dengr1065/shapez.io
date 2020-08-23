@@ -7,11 +7,6 @@ export const IS_DEBUG =
     (window.location.host.indexOf("localhost:") >= 0 || window.location.host.indexOf("192.168.0.") >= 0) &&
     window.location.search.indexOf("nodebug") < 0;
 
-export const IS_DEMO = queryParamOptions.fullVersion
-    ? false
-    : (!G_IS_DEV && !G_IS_STANDALONE) ||
-      (typeof window !== "undefined" && window.location.search.indexOf("demo") >= 0);
-
 export const SUPPORT_TOUCH = false;
 
 const smoothCanvas = true;
@@ -101,10 +96,7 @@ export const globalConfig = {
         file: "Ec'])@^+*9zMevK3uMV4432x9%iK'=",
 
         // Savegame salt
-        sgSalt: "}95Q3%8/.837Lqym_BJx%q7)pAHJbF",
-
-        // Analytics key
-        analyticsApiKey: "baf6a50f0cc7dfdec5a0e21c88a1c69a4b34bc4a",
+        sgSalt: "}95Q3%8/.837Lqym_BJx%q7)pAHJbF"
     },
 };
 

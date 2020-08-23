@@ -93,7 +93,7 @@ function gulptasksStandalone($, gulp) {
             platform,
             asar: true,
             executableName: "shapezio",
-            icon: path.join(electronBaseDir, "favicon"),
+            icon: path.join(electronBaseDir, "icon"),
             name: "shapez.io-standalone",
             out: tempDestDir,
             overwrite: true,
@@ -170,20 +170,20 @@ function gulptasksStandalone($, gulp) {
         );
     }
 
-    gulp.task("standalone.package.prod.win64", cb => packageStandalone("win32", "x64", cb));
-    gulp.task("standalone.package.prod.win32", cb => packageStandalone("win32", "ia32", cb));
-    gulp.task("standalone.package.prod.linux64", cb => packageStandalone("linux", "x64", cb));
-    gulp.task("standalone.package.prod.linux32", cb => packageStandalone("linux", "ia32", cb));
-    gulp.task("standalone.package.prod.darwin64", cb => packageStandalone("darwin", "x64", cb));
+    gulp.task("standalone.package.win64", cb => packageStandalone("win32", "x64", cb));
+    gulp.task("standalone.package.win32", cb => packageStandalone("win32", "ia32", cb));
+    gulp.task("standalone.package.linux64", cb => packageStandalone("linux", "x64", cb));
+    gulp.task("standalone.package.linux32", cb => packageStandalone("linux", "ia32", cb));
+    gulp.task("standalone.package.darwin64", cb => packageStandalone("darwin", "x64", cb));
 
     gulp.task(
-        "standalone.package.prod",
+        "standalone.package",
         gulp.series(
             "standalone.prepare",
             gulp.parallel(
-                "standalone.package.prod.win64",
-                "standalone.package.prod.linux64",
-                "standalone.package.prod.darwin64"
+                "standalone.package.win64",
+                "standalone.package.linux64",
+                "standalone.package.darwin64"
             )
         )
     );

@@ -82,10 +82,6 @@
         display: grid;
         grid-template-columns: 1fr;
 
-        &.demo {
-            grid-template-columns: 1fr 1fr;
-        }
-
         .standaloneBanner {
             background: rgb(255, 234, 245);
             @include S(border-radius, $globalBorderRadius);
@@ -152,14 +148,6 @@
         @include S(padding-top, 20px);
         img {
             @include S(width, 350px);
-        }
-
-        .demoBadge {
-            @include S(margin, 10px, 0);
-            @include S(width, 100px);
-            @include S(height, 30px);
-            background: uiResource("demo_badge.png") center center / contain no-repeat;
-            display: inline-block;
         }
 
         position: relative;

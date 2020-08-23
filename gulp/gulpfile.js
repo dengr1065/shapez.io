@@ -18,7 +18,8 @@ const $ = require("gulp-load-plugins")({
 
 const envVars = [
     "SHAPEZ_CLI_SERVER_HOST",
-    "SHAPEZ_CLI_SSH_USER"
+    "SHAPEZ_CLI_SFTP_USER",
+    "SHAPEZ_CLI_SFTP_PASS"
 ];
 
 for (let i = 0; i < envVars.length; ++i) {
@@ -228,23 +229,14 @@ gulp.task(
     )
 );
 
-// Builds everything (staging)
-gulp.task("step.staging.code", gulp.series("sounds.fullbuild", "translations.fullBuild", "js.staging"));
+// Builds everything
+gulp.task("step.code", gulp.series("sounds.fullbuild", "translations.fullBuild", "js"));
 gulp.task(
-    "step.staging.mainbuild",
-    gulp.parallel("utils.copyAdditionalBuildFiles", "step.baseResources", "step.staging.code")
+    "step.mainbuild",
+    gulp.parallel("utils.copyAdditionalBuildFiles", "step.baseResources", "step.code")
 );
-gulp.task("step.staging.all", gulp.series("step.staging.mainbuild", "css.prod", "html.staging"));
-gulp.task("build.staging", gulp.series("utils.cleanup", "step.staging.all", "step.postbuild"));
-
-// Builds everything (prod)
-gulp.task("step.prod.code", gulp.series("sounds.fullbuild", "translations.fullBuild", "js.prod"));
-gulp.task(
-    "step.prod.mainbuild",
-    gulp.parallel("utils.copyAdditionalBuildFiles", "step.baseResources", "step.prod.code")
-);
-gulp.task("step.prod.all", gulp.series("step.prod.mainbuild", "css.prod", "html.prod"));
-gulp.task("build.prod", gulp.series("utils.cleanup", "step.prod.all", "step.postbuild"));
+gulp.task("step.all", gulp.series("step.mainbuild", "css", "html"));
+gulp.task("build", gulp.series("utils.cleanup", "step.all", "step.postbuild"));
 
 // Builds everything (standalone-beta)
 gulp.task(
@@ -254,7 +246,7 @@ gulp.task(
 gulp.task("step.standalone-beta.mainbuild", gulp.parallel("step.baseResources", "step.standalone-beta.code"));
 gulp.task(
     "step.standalone-beta.all",
-    gulp.series("step.standalone-beta.mainbuild", "css.prod-standalone", "html.standalone-beta")
+    gulp.series("step.standalone-beta.mainbuild", "css.standalone", "html.standalone-beta")
 );
 gulp.task(
     "build.standalone-beta",
@@ -263,31 +255,22 @@ gulp.task(
 
 // Builds everything (standalone-prod)
 gulp.task(
-    "step.standalone-prod.code",
-    gulp.series("sounds.fullbuildHQ", "translations.fullBuild", "js.standalone-prod")
+    "step.standalone.code",
+    gulp.series("sounds.fullbuildHQ", "translations.fullBuild", "js.standalone")
 );
-gulp.task("step.standalone-prod.mainbuild", gulp.parallel("step.baseResources", "step.standalone-prod.code"));
+gulp.task("step.standalone.mainbuild", gulp.parallel("step.baseResources", "step.standalone.code"));
 gulp.task(
-    "step.standalone-prod.all",
-    gulp.series("step.standalone-prod.mainbuild", "css.prod-standalone", "html.standalone-prod")
+    "step.standalone.all",
+    gulp.series("step.standalone.mainbuild", "css.standalone", "html.standalone")
 );
 gulp.task(
-    "build.standalone-prod",
-    gulp.series("utils.cleanup", "step.standalone-prod.all", "step.postbuild")
+    "build.standalone",
+    gulp.series("utils.cleanup", "step.standalone.all", "step.postbuild")
 );
 
 // Deploying!
-gulp.task(
-    "main.deploy.alpha",
-    gulp.series("utils.requireCleanWorkingTree", "build.staging", "ftp.upload.alpha")
-);
-gulp.task(
-    "main.deploy.staging",
-    gulp.series("utils.requireCleanWorkingTree", "build.staging", "ftp.upload.staging")
-);
-gulp.task("main.deploy.prod", gulp.series("utils.requireCleanWorkingTree", "build.prod", "ftp.upload.prod"));
-gulp.task("main.deploy.all", gulp.series("main.deploy.staging", "main.deploy.prod"));
-gulp.task("main.standalone", gulp.series("build.standalone-prod", "standalone.package.prod"));
+gulp.task("main.deploy", gulp.series("utils.requireCleanWorkingTree", "build", "ftp.upload"));
+gulp.task("main.standalone", gulp.series("build.standalone", "standalone.package"));
 
 // Live-development
 gulp.task(

@@ -11,9 +11,9 @@ function gulptasksCSS($, gulp, buildFolder, browserSync) {
             baseUrl: ".",
             cachebuster: cachebust
                 ? (filePath, urlPathname) => ({
-                      pathname: buildUtils.cachebust(urlPathname, commitHash),
-                  })
-                : "",
+                    pathname: buildUtils.cachebust(urlPathname, commitHash),
+                })
+                : ""
         });
 
     // Postcss configuration
@@ -70,7 +70,7 @@ function gulptasksCSS($, gulp, buildFolder, browserSync) {
     });
 
     // Builds the css in production mode (=minified)
-    gulp.task("css.prod", () => {
+    gulp.task("css", () => {
         return (
             gulp
                 .src("../src/css/main.scss", { cwd: __dirname })
@@ -82,7 +82,7 @@ function gulptasksCSS($, gulp, buildFolder, browserSync) {
     });
 
     // Builds the css in production mode (=minified), without cachebusting
-    gulp.task("css.prod-standalone", () => {
+    gulp.task("css.standalone", () => {
         return (
             gulp
                 .src("../src/css/main.scss", { cwd: __dirname })
@@ -95,5 +95,5 @@ function gulptasksCSS($, gulp, buildFolder, browserSync) {
 }
 
 module.exports = {
-    gulptasksCSS,
+    gulptasksCSS
 };

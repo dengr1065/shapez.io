@@ -128,11 +128,6 @@ declare interface Math {
 
 declare type Class<T = unknown> = new (...args: any[]) => T;
 
-declare interface String {
-    padStart(size: number, fill?: string): string;
-    padEnd(size: number, fill: string): string;
-}
-
 declare interface FactoryTemplate<T> {
     entries: Array<Class<T>>;
     entryIds: Array<string>;

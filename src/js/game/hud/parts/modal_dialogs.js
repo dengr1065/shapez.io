@@ -110,14 +110,7 @@ export class HUDModalDialogs extends BaseHUDPart {
             this.app.sound.playUiSound(SOUNDS.dialogOk);
         }
 
-        this.app.analytics.trackUiClick("demo_dialog_show");
-
-        dialog.buttonSignals.cancel.add(() => {
-            this.app.analytics.trackUiClick("demo_dialog_cancel");
-        });
-
         dialog.buttonSignals.getStandalone.add(() => {
-            this.app.analytics.trackUiClick("demo_dialog_click");
             window.open(THIRDPARTY_URLS.standaloneStorePage);
         });
 

@@ -13,7 +13,7 @@
         "publishOnItchWindows": "butler push tmp_standalone_files/shapez.io-standalone-win32-x64 tobspr/shapezio:windows --userversion-file version",
         "publishOnItchLinux": "butler push tmp_standalone_files/shapez.io-standalone-linux-x64 tobspr/shapezio:linux --userversion-file version",
         "publishOnItch": "yarn publishOnItchWindows && yarn publishOnItchLinux",
-        "publishWeb": "cd gulp && yarn main.deploy.prod",
+        "publishWeb": "cd gulp && yarn gulp main.deploy",
         "publish": "yarn publishStandalone && yarn publishWeb",
         "syncTranslations": "node sync-translations.js"
     },
