@@ -92,26 +92,6 @@ export class GameState {
     }
 
     /**
-     *
-     * @param {string} nextStateId
-     * @param {object=} nextStatePayload
-     */
-    watchAdAndMoveToState(nextStateId, nextStatePayload = {}) {
-        if (this.app.adProvider.getCanShowVideoAd() && this.app.isRenderable()) {
-            this.moveToState(
-                "WatchAdState",
-                {
-                    nextStateId,
-                    nextStatePayload,
-                },
-                true
-            );
-        } else {
-            this.moveToState(nextStateId, nextStatePayload);
-        }
-    }
-
-    /**
      * Tracks clicks on a given element and calls the given callback *on this state*.
      * If you want to call another function wrap it inside a lambda.
      * @param {Element} element The element to track clicks on
@@ -142,52 +122,52 @@ export class GameState {
      * Callback when entering the state, to be overriddemn
      * @param {any} payload Arbitrary data passed from the state which we are transferring from
      */
-    onEnter(payload) {}
+    onEnter(payload) { }
 
     /**
      * Callback when leaving the state
      */
-    onLeave() {}
+    onLeave() { }
 
     /**
      * Callback before leaving the game state or when the page is unloaded
      */
-    onBeforeExit() {}
+    onBeforeExit() { }
 
     /**
      * Callback when the app got paused (on android, this means in background)
      */
-    onAppPause() {}
+    onAppPause() { }
 
     /**
      * Callback when the app got resumed (on android, this means in foreground again)
      */
-    onAppResume() {}
+    onAppResume() { }
 
     /**
      * Render callback
      * @param {number} dt Delta time in ms since last render
      */
-    onRender(dt) {}
+    onRender(dt) { }
 
     /**
      * Background tick callback, called while the game is inactiev
      * @param {number} dt Delta time in ms since last tick
      */
-    onBackgroundTick(dt) {}
+    onBackgroundTick(dt) { }
 
     /**
      * Called when the screen resized
      * @param {number} w window/screen width
      * @param {number} h window/screen height
      */
-    onResized(w, h) {}
+    onResized(w, h) { }
 
     /**
      * Internal backbutton handler, called when the hardware back button is pressed or
      * the escape key is pressed
      */
-    onBackButton() {}
+    onBackButton() { }
 
     //// INTERFACE ////
 

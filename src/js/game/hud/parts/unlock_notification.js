@@ -76,7 +76,7 @@ export class HUDUnlockNotification extends BaseHUDPart {
                 const metaBuilding = gMetaBuildingRegistry.findByClass(metaBuildingClass);
                 html += `<div class="buildingExplanation" data-icon="building_tutorials/${
                     metaBuilding.getId() + (variant === defaultBuildingVariant ? "" : "-" + variant)
-                }.png"></div>`;
+                    }.png"></div>`;
             });
         }
         html += "</div>";
@@ -110,31 +110,29 @@ export class HUDUnlockNotification extends BaseHUDPart {
     }
 
     requestClose() {
-        this.root.app.adProvider.showVideoAd().then(() => {
-            this.close();
+        this.close();
 
-            if (!this.root.app.settings.getAllSettings().offerHints) {
-                return;
-            }
+        if (!this.root.app.settings.getAllSettings().offerHints) {
+            return;
+        }
 
-            if (this.root.hubGoals.level === 3) {
-                const { showUpgrades } = this.root.hud.parts.dialogs.showInfo(
-                    T.dialogs.upgradesIntroduction.title,
-                    T.dialogs.upgradesIntroduction.desc,
-                    ["showUpgrades:good:timeout"]
-                );
-                showUpgrades.add(() => this.root.hud.parts.shop.show());
-            }
+        if (this.root.hubGoals.level === 3) {
+            const { showUpgrades } = this.root.hud.parts.dialogs.showInfo(
+                T.dialogs.upgradesIntroduction.title,
+                T.dialogs.upgradesIntroduction.desc,
+                ["showUpgrades:good:timeout"]
+            );
+            showUpgrades.add(() => this.root.hud.parts.shop.show());
+        }
 
-            if (this.root.hubGoals.level === 5) {
-                const { showKeybindings } = this.root.hud.parts.dialogs.showInfo(
-                    T.dialogs.keybindingsIntroduction.title,
-                    T.dialogs.keybindingsIntroduction.desc,
-                    ["showKeybindings:misc", "ok:good:timeout"]
-                );
-                showKeybindings.add(() => this.root.gameState.goToKeybindings());
-            }
-        });
+        if (this.root.hubGoals.level === 5) {
+            const { showKeybindings } = this.root.hud.parts.dialogs.showInfo(
+                T.dialogs.keybindingsIntroduction.title,
+                T.dialogs.keybindingsIntroduction.desc,
+                ["showKeybindings:misc", "ok:good:timeout"]
+            );
+            showKeybindings.add(() => this.root.gameState.goToKeybindings());
+        }
     }
 
     close() {

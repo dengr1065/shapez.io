@@ -32,23 +32,7 @@ function gulptasksJS($, gulp, buildFolder, browserSync) {
 
     //// STAGING
 
-    gulp.task("js.staging.transpiled", () => {
-        return gulp
-            .src("../src/js/main.js")
-            .pipe(
-                $.webpackStream(
-                    requireUncached("./webpack.production.config.js")({
-                        enableAssert: true,
-                        environment: "staging",
-                        es6: false,
-                    })
-                )
-            )
-            .pipe($.rename("bundle-transpiled.js"))
-            .pipe(gulp.dest(buildFolder));
-    });
-
-    gulp.task("js.staging.latest", () => {
+    gulp.task("js.staging", () => {
         return gulp
             .src("../src/js/main.js")
             .pipe(
@@ -62,28 +46,10 @@ function gulptasksJS($, gulp, buildFolder, browserSync) {
             )
             .pipe(gulp.dest(buildFolder));
     });
-    gulp.task("js.staging", gulp.parallel("js.staging.transpiled", "js.staging.latest"));
 
     //// PROD
 
-    gulp.task("js.prod.transpiled", () => {
-        return gulp
-            .src("../src/js/main.js")
-            .pipe(
-                $.webpackStream(
-                    requireUncached("./webpack.production.config.js")({
-                        enableAssert: false,
-                        environment: "prod",
-                        es6: false,
-                    })
-                )
-            )
-            .pipe($.rename("bundle-transpiled.js"))
-            .pipe(gulp.dest(buildFolder))
-            .pipe(browserSync.stream());
-    });
-
-    gulp.task("js.prod.latest", () => {
+    gulp.task("js.prod", () => {
         return gulp
             .src("../src/js/main.js")
             .pipe(
@@ -98,8 +64,6 @@ function gulptasksJS($, gulp, buildFolder, browserSync) {
             .pipe(gulp.dest(buildFolder))
             .pipe(browserSync.stream());
     });
-
-    gulp.task("js.prod", gulp.parallel("js.prod.transpiled", "js.prod.latest"));
 
     //// STANDALONE
 

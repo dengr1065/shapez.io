@@ -69,21 +69,6 @@
         return script;
     }
 
-    function loadFallbackJs(error) {
-        console.warn("👀 ES6 Script not supported, loading transpiled code.");
-        console.warn("👀 Error was:", error);
-        var scriptTransp = makeJsTag(bundleSrcTranspiled, bundleIntegrityTranspiled);
-        scriptTransp.addEventListener("error", scriptFail);
-        scriptTransp.addEventListener("load", onJsLoaded);
-        document.head.appendChild(scriptTransp);
-    }
-
-    function scriptFail(error) {
-        console.error("👀 Failed to load bundle!");
-        console.error("👀 Error was:", error);
-        throw new Error("Core load failed.");
-    }
-
     function expectJsParsed() {
         if (!callbackDone) {
             console.error("👀 Got no core callback");
@@ -106,7 +91,6 @@
     };
 
     var scriptEs6 = makeJsTag(bundleSrc, bundleIntegrity);
-    scriptEs6.addEventListener("error", loadFallbackJs);
     scriptEs6.addEventListener("load", onJsLoaded);
     document.head.appendChild(scriptEs6);
 })();

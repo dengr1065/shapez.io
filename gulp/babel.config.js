@@ -4,7 +4,7 @@ module.exports = function (api) {
         [
             "@babel/preset-env",
             {
-                targets: "cover 99.5%",
+                targets: "> 5%",
                 useBuiltIns: "usage",
                 corejs: 3,
                 loose: true,
@@ -14,14 +14,6 @@ module.exports = function (api) {
         ],
     ];
     const plugins = [
-        "closure-elimination",
-        // var is faster than let and const!
-        [
-            "@babel/plugin-transform-block-scoping",
-            {
-                throwIfClosureRequired: false,
-            },
-        ],
         [
             "@babel/plugin-transform-classes",
             {

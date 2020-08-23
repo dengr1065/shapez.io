@@ -524,14 +524,6 @@ export function checkTimerExpired(now, lastTick, tickRate) {
  * Returns if the game supports this browser
  */
 export function isSupportedBrowser() {
-    // please note,
-    // that IE11 now returns undefined again for window.chrome
-    // and new Opera 30 outputs true for window.chrome
-    // but needs to check if window.opr is not undefined
-    // and new IE Edge outputs to true now for window.chrome
-    // and if not iOS Chrome check
-    // so use the below updated condition
-
     if (G_IS_MOBILE_APP || G_IS_STANDALONE) {
         return true;
     }
@@ -541,24 +533,15 @@ export function isSupportedBrowser() {
     var winNav = window.navigator;
     var vendorName = winNav.vendor;
     // @ts-ignore
-    var isIEedge = winNav.userAgent.indexOf("Edge") > -1;
+    var isIEedge = winNav.userAgent.includes("Edge");
     var isIOSChrome = winNav.userAgent.match("CriOS");
 
     if (isIOSChrome) {
         // is Google Chrome on IOS
         return false;
-    } else if (
-        isChromium !== null &&
-        typeof isChromium !== "undefined" &&
-        vendorName === "Google Inc." &&
-        isIEedge === false
-    ) {
-        // is Google Chrome
-        return true;
-    } else {
-        // not Google Chrome
-        return false;
     }
+
+    return true;
 }
 
 /**
@@ -628,9 +611,9 @@ export function formatItemsPerSecond(speed, double = false, separator = T.global
     return speed === 1.0
         ? T.ingame.buildingPlacement.infoTexts.oneItemPerSecond
         : T.ingame.buildingPlacement.infoTexts.itemsPerSecond.replace(
-              "<x>",
-              round2Digits(speed).toString().replace(".", separator)
-          ) + (double ? "  " + T.ingame.buildingPlacement.infoTexts.itemsPerSecondDouble : "");
+            "<x>",
+            round2Digits(speed).toString().replace(".", separator)
+        ) + (double ? "  " + T.ingame.buildingPlacement.infoTexts.itemsPerSecondDouble : "");
 }
 
 /**

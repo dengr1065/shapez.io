@@ -2,8 +2,6 @@ import { globalConfig, IS_DEMO, IS_MOBILE } from "../../core/config";
 import { createLogger } from "../../core/logging";
 import { queryParamOptions } from "../../core/query_parameters";
 import { clamp } from "../../core/utils";
-import { GamedistributionAdProvider } from "../ad_providers/gamedistribution";
-import { NoAdProvider } from "../ad_providers/no_ad_provider";
 import { PlatformWrapperInterface } from "../wrapper";
 import { StorageImplBrowser } from "./storage";
 import { StorageImplBrowserIndexedDB } from "./storage_indexed_db";
@@ -16,7 +14,6 @@ export class PlatformWrapperImplBrowser extends PlatformWrapperInterface {
 
         this.embedProvider = {
             id: "shapezio-website",
-            adProvider: NoAdProvider,
             iframed: false,
             externalLinks: true,
             iogLink: true,
@@ -51,7 +48,6 @@ export class PlatformWrapperImplBrowser extends PlatformWrapperInterface {
                 case "gamedistribution": {
                     this.embedProvider.id = "gamedistribution";
                     this.embedProvider.externalLinks = false;
-                    this.embedProvider.adProvider = GamedistributionAdProvider;
                     break;
                 }
 
@@ -74,7 +70,6 @@ export class PlatformWrapperImplBrowser extends PlatformWrapperInterface {
         logger.log("Embed provider:", this.embedProvider.id);
 
         return this.detectStorageImplementation()
-            .then(() => this.initializeAdProvider())
             .then(() => super.initialize());
     }
 
@@ -150,7 +145,7 @@ export class PlatformWrapperImplBrowser extends PlatformWrapperInterface {
             // Do nothing
             alert(
                 "This platform does not allow opening external links. You can play on https://shapez.io directly to open them.\n\nClicked Link: " +
-                    url
+                url
             );
         }
     }
@@ -158,54 +153,6 @@ export class PlatformWrapperImplBrowser extends PlatformWrapperInterface {
     performRestart() {
         logger.log("Performing restart");
         window.location.reload(true);
-    }
-
-    /**
-     * Detects if there is an adblocker installed
-     * @returns {Promise<boolean>}
-     */
-    detectAdblock() {
-        return Promise.race([
-            new Promise(resolve => {
-                // If the request wasn't blocked within a very short period of time, this means
-                // the adblocker is not active and the request was actually made -> ignore it then
-                setTimeout(() => resolve(false), 30);
-            }),
-            new Promise(resolve => {
-                fetch("https://googleads.g.doubleclick.net/pagead/id", {
-                    method: "HEAD",
-                    mode: "no-cors",
-                })
-                    .then(res => {
-                        resolve(false);
-                    })
-                    .catch(err => {
-                        resolve(true);
-                    });
-            }),
-        ]);
-    }
-
-    initializeAdProvider() {
-        if (G_IS_DEV && !globalConfig.debug.testAds) {
-            logger.log("Ads disabled in local environment");
-            return Promise.resolve();
-        }
-
-        // First, detect adblocker
-        return this.detectAdblock().then(hasAdblocker => {
-            if (hasAdblocker) {
-                logger.log("Adblock detected");
-                return;
-            }
-
-            const adProvider = this.embedProvider.adProvider;
-            this.app.adProvider = new adProvider(this.app);
-            return this.app.adProvider.initialize().catch(err => {
-                logger.error("Failed to initialize ad provider, disabling ads:", err);
-                this.app.adProvider = new NoAdProvider(this.app);
-            });
-        });
     }
 
     exitApp() {

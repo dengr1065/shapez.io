@@ -42,10 +42,6 @@ export class PlatformWrapperImplElectron extends PlatformWrapperImplBrowser {
         window.location.reload(true);
     }
 
-    initializeAdProvider() {
-        return Promise.resolve();
-    }
-
     getSupportsFullscreen() {
         return true;
     }

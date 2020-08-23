@@ -22,11 +22,6 @@ declare const G_IS_RELEASE: boolean;
 // Node require
 declare function require(...args): any;
 
-// Polyfills
-declare interface String {
-    replaceAll(search: string, replacement: string): string;
-}
-
 declare interface CanvasRenderingContext2D {
     beginRoundedRect(x: number, y: number, w: number, h: number, r: number): void;
     beginCircle(x: number, y: number, r: number): void;

@@ -1,6 +1,6 @@
 /* eslint-disable quotes,no-undef */
 
-const { app, BrowserWindow, Menu, MenuItem, session } = require("electron");
+const { app, BrowserWindow, Menu, MenuItem } = require("electron");
 const path = require("path");
 const url = require("url");
 const childProcess = require("child_process");
@@ -9,28 +9,25 @@ const fs = require("fs");
 const isDev = process.argv.indexOf("--dev") >= 0;
 const isLocal = process.argv.indexOf("--local") >= 0;
 
-const roamingFolder =
-    process.env.APPDATA ||
-    (process.platform == "darwin"
-        ? process.env.HOME + "/Library/Preferences"
-        : process.env.HOME + "/.local/share");
-let storePath = path.join(roamingFolder, "shapez.io", "saves");
+const storePath = path.join(app.getPath("appData"), "shapez.io");
+const savesDir = path.join(localDataDir, "savegames");
+const screenshotsDir = path.join(localDataDir, "screenshots");
 
-if (!fs.existsSync(storePath)) {
-    // No try-catch by design
-    fs.mkdirSync(storePath, { recursive: true });
-}
+const temporaryDir = fs.mkdtempSync("shapezio");
+
+[savesDir, screenshotsDir].forEach(dir => {
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, {
+            recursive: true
+        });
+    }
+});
 
 /** @type {BrowserWindow} */
 let win = null;
 let menu = null;
 
 function createWindow() {
-    let faviconExtension = ".png";
-    if (process.platform === "win32") {
-        faviconExtension = ".ico";
-    }
-
     win = new BrowserWindow({
         width: 1280,
         height: 800,
@@ -39,16 +36,13 @@ function createWindow() {
         useContentSize: true,
         minWidth: 800,
         minHeight: 600,
-        title: "shapez.io Standalone",
-        transparent: false,
-        icon: path.join(__dirname, "favicon" + faviconExtension),
-        // fullscreen: true,
+        title: "shapez.io",
         autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true,
             webSecurity: false,
         },
-        allowRunningInsecureContent: false,
+        allowRunningInsecureContent: false
     });
 
     if (isLocal) {
@@ -58,7 +52,7 @@ function createWindow() {
             url.format({
                 pathname: path.join(__dirname, "index.html"),
                 protocol: "file:",
-                slashes: true,
+                slashes: true
             })
         );
     }
@@ -80,38 +74,27 @@ function createWindow() {
         app.quit();
     });
 
-    function handleWindowBeforeunload(event) {
-        const confirmed = dialog.showMessageBox(remote.getCurrentWindow(), options) === 1;
-        if (confirmed) {
-            remote.getCurrentWindow().close();
-        } else {
-            event.returnValue = false;
-        }
-    }
-
-    win.on("", handleWindowBeforeunload);
-
     if (isDev) {
         menu = new Menu();
 
         const mainItem = new MenuItem({
             label: "Toggle Dev Tools",
             click: () => win.toggleDevTools(),
-            accelerator: "F12",
+            accelerator: "F12"
         });
         menu.append(mainItem);
 
         const reloadItem = new MenuItem({
             label: "Restart",
             click: () => win.reload(),
-            accelerator: "F5",
+            accelerator: "F5"
         });
         menu.append(reloadItem);
 
         const fullscreenItem = new MenuItem({
             label: "Fullscreen",
             click: () => win.setFullScreen(!win.isFullScreen()),
-            accelerator: "F11",
+            accelerator: "F11"
         });
         menu.append(fullscreenItem);
 
@@ -157,14 +140,14 @@ ipcMain.on("exit-app", (event, flag) => {
 });
 
 function performFsJob(job) {
-    const fname = path.join(storePath, job.filename);
+    let fname = path.join(storePath, job.filename);
 
     switch (job.type) {
         case "read": {
             if (!fs.existsSync(fname)) {
                 return {
                     // Special FILE_NOT_FOUND error code
-                    error: "file_not_found",
+                    error: "file_not_found"
                 };
             }
 
@@ -173,27 +156,30 @@ function performFsJob(job) {
                 contents = fs.readFileSync(fname, { encoding: "utf8" });
             } catch (ex) {
                 return {
-                    error: ex,
+                    error: ex
                 };
             }
 
             return {
                 success: true,
-                data: contents,
+                data: contents
             };
         }
         case "write": {
             try {
-                fs.writeFileSync(fname, job.contents);
+                const tmpName = path.join(temporaryDir, path.basename(fname));
+                fs.writeFileSync(tmpName, job.contents);
+
+                fs.renameSync(tmpName, fname);
             } catch (ex) {
                 return {
-                    error: ex,
+                    error: ex
                 };
             }
 
             return {
                 success: true,
-                data: job.contents,
+                data: job.contents
             };
         }
 
@@ -202,13 +188,13 @@ function performFsJob(job) {
                 fs.unlinkSync(fname);
             } catch (ex) {
                 return {
-                    error: ex,
+                    error: ex
                 };
             }
 
             return {
                 success: true,
-                data: null,
+                data: null
             };
         }
 
