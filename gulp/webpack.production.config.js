@@ -1,9 +1,8 @@
-// @ts-nocheck
+// ts-nocheck
 
 const path = require("path");
 const webpack = require("webpack");
 const { getRevision, getVersion, getAllResourceImages } = require("./buildutils");
-const lzString = require("lz-string");
 
 const TerserPlugin = require("terser-webpack-plugin");
 const StringReplacePlugin = require("string-replace-webpack-plugin");
@@ -11,25 +10,20 @@ const UnusedFilesPlugin = require("unused-files-webpack-plugin").UnusedFilesWebp
 
 module.exports = ({
     enableAssert = false,
-    environment,
-    es6 = false,
     standalone = false,
     isBrowser = true,
-    mobileApp = false,
+    mobileApp = false
 }) => {
     const globalDefs = {
         assert: enableAssert ? "window.assert" : "false && window.assert",
         assertAlways: "window.assert",
         abstract: "window.assert(false, 'abstract method called');",
         G_IS_DEV: "false",
-        G_IS_RELEASE: environment === "prod" ? "true" : "false",
-        G_IS_STANDALONE: standalone ? "true" : "false",
-        G_IS_BROWSER: isBrowser ? "true" : "false",
-        G_IS_MOBILE_APP: mobileApp ? "true" : "false",
-        G_TRACKING_ENDPOINT: JSON.stringify(
-            lzString.compressToEncodedURIComponent("https://tracking.shapez.io/v1")
-        ),
-        G_APP_ENVIRONMENT: JSON.stringify(environment),
+        G_IS_RELEASE: "true",
+        G_IS_STANDALONE: standalone.toString(),
+        G_IS_BROWSER: isBrowser.toString(),
+        G_IS_MOBILE_APP: mobileApp.toString(),
+        G_APP_ENVIRONMENT: "\"prod\"",
         G_HAVE_ASSERT: enableAssert ? "true" : "false",
         G_BUILD_TIME: "" + new Date().getTime(),
         G_BUILD_COMMIT_HASH: JSON.stringify(getRevision()),
@@ -37,7 +31,7 @@ module.exports = ({
         G_ALL_UI_IMAGES: JSON.stringify(getAllResourceImages()),
     };
 
-    const minifyNames = environment === "prod";
+    const minifyNames = true;
 
     return {
         mode: "production",
@@ -86,7 +80,7 @@ module.exports = ({
                     sourceMap: false,
                     cache: false,
                     terserOptions: {
-                        ecma: es6 ? 6 : 5,
+                        ecma: 10,
                         parse: {},
                         module: true,
                         toplevel: true,
@@ -138,21 +132,15 @@ module.exports = ({
                             ascii_only: true,
                             beautify: false,
                             braces: false,
-                            ecma: es6 ? 6 : 5,
-                            preamble:
-                                "/* shapez.io Codebase - Copyright 2020 Tobias Springer - " +
-                                getVersion() +
-                                " @ " +
-                                getRevision() +
-                                " */",
-                        },
-                    },
-                }),
-            ],
+                            ecma: 10
+                        }
+                    }
+                })
+            ]
         },
         performance: {
             maxEntrypointSize: 5120000,
-            maxAssetSize: 5120000,
+            maxAssetSize: 5120000
         },
         plugins: [
             new webpack.DefinePlugin(globalDefs),
@@ -160,8 +148,8 @@ module.exports = ({
             new UnusedFilesPlugin({
                 failOnUnused: false,
                 cwd: path.join(__dirname, "..", "src", "js"),
-                patterns: ["../src/js/**/*.js"],
-            }),
+                patterns: ["../src/js/**/*.js"]
+            })
         ],
         module: {
             rules: [
@@ -169,7 +157,7 @@ module.exports = ({
                     test: /\.json$/,
                     enforce: "pre",
                     use: ["./gulp/loader.compressjson"],
-                    type: "javascript/auto",
+                    type: "javascript/auto"
                 },
                 { test: /\.(png|jpe?g|svg)$/, loader: "ignore-loader" },
                 {
@@ -181,24 +169,24 @@ module.exports = ({
                             loader: "webpack-strip-block",
                             options: {
                                 start: "typehints:start",
-                                end: "typehints:end",
-                            },
+                                end: "typehints:end"
+                            }
                         },
                         {
                             loader: "webpack-strip-block",
                             options: {
                                 start: "dev:start",
-                                end: "dev:end",
-                            },
+                                end: "dev:end"
+                            }
                         },
                         {
                             loader: "webpack-strip-block",
                             options: {
                                 start: "wires:start",
-                                end: "wires:end",
-                            },
-                        },
-                    ],
+                                end: "wires:end"
+                            }
+                        }
+                    ]
                 },
                 {
                     test: /\.js$/,
@@ -207,10 +195,8 @@ module.exports = ({
                         {
                             loader: "babel-loader?cacheDirectory",
                             options: {
-                                configFile: require.resolve(
-                                    es6 ? "./babel-es6.config.js" : "./babel.config.js"
-                                ),
-                            },
+                                configFile: require.resolve("./babel.config.js")
+                            }
                         },
                         "uglify-template-string-loader", // Finally found this plugin
                         StringReplacePlugin.replace({
@@ -219,12 +205,12 @@ module.exports = ({
                                 { pattern: /globalConfig\.halfTileSize/g, replacement: () => "16" },
                                 {
                                     pattern: /globalConfig\.beltSpeedItemsPerSecond/g,
-                                    replacement: () => "2.0",
+                                    replacement: () => "2.0"
                                 },
-                                { pattern: /globalConfig\.debug/g, replacement: () => "''" },
-                            ],
-                        }),
-                    ],
+                                { pattern: /globalConfig\.debug/g, replacement: () => "''" }
+                            ]
+                        })
+                    ]
                 },
                 {
                     test: /\.worker\.js$/,
@@ -239,23 +225,21 @@ module.exports = ({
                         {
                             loader: "babel-loader?cacheDirectory",
                             options: {
-                                configFile: require.resolve(
-                                    es6 ? "./babel-es6.config.js" : "./babel.config.js"
-                                ),
-                            },
-                        },
-                    ],
+                                configFile: require.resolve("./babel.config.js")
+                            }
+                        }
+                    ]
                 },
                 {
                     test: /\.md$/,
-                    use: ["html-loader", "markdown-loader"],
+                    use: ["html-loader", "markdown-loader"]
                 },
                 {
                     test: /\.ya?ml$/,
                     type: "json", // Required by Webpack v4
-                    use: "yaml-loader",
-                },
-            ],
-        },
+                    use: "yaml-loader"
+                }
+            ]
+        }
     };
 };

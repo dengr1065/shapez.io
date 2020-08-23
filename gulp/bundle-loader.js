@@ -90,7 +90,7 @@
         callbackDone = true;
     };
 
-    var scriptEs6 = makeJsTag(bundleSrc, bundleIntegrity);
-    scriptEs6.addEventListener("load", onJsLoaded);
-    document.head.appendChild(scriptEs6);
+    const script = makeJsTag(bundleSrc, bundleIntegrity);
+    script.addEventListener("load", onJsLoaded);
+    document.head.appendChild(script);
 })();

@@ -38,9 +38,7 @@ function gulptasksJS($, gulp, buildFolder, browserSync) {
             .pipe(
                 $.webpackStream(
                     requireUncached("./webpack.production.config.js")({
-                        enableAssert: false,
-                        environment: "prod",
-                        es6: true,
+                        enableAssert: false
                     })
                 )
             )
@@ -78,22 +76,6 @@ function gulptasksJS($, gulp, buildFolder, browserSync) {
             .pipe(gulp.dest(buildFolder));
     });
 
-    gulp.task("js.standalone-beta", () => {
-        return gulp
-            .src("../src/js/main.js")
-            .pipe(
-                $.webpackStream(
-                    requireUncached("./webpack.production.config.js")({
-                        enableAssert: true,
-                        environment: "staging",
-                        es6: true,
-                        standalone: true,
-                    })
-                )
-            )
-            .pipe(gulp.dest(buildFolder));
-    });
-
     gulp.task("js.standalone", () => {
         return gulp
             .src("../src/js/main.js")
@@ -101,9 +83,7 @@ function gulptasksJS($, gulp, buildFolder, browserSync) {
                 $.webpackStream(
                     requireUncached("./webpack.production.config.js")({
                         enableAssert: false,
-                        environment: "prod",
-                        es6: true,
-                        standalone: true,
+                        standalone: true
                     })
                 )
             )

@@ -218,13 +218,6 @@ function gulptasksHTML($, gulp, buildFolder) {
         });
     });
 
-    gulp.task("html.standalone-beta", () => {
-        return buildHtml("https://api-staging.shapez.io", {
-            standalone: true,
-            enableCachebust: false
-        });
-    });
-
     gulp.task("html.standalone", () => {
         return buildHtml("https://analytics.shapez.io", {
             standalone: true,

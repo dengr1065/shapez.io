@@ -238,21 +238,6 @@ gulp.task(
 gulp.task("step.all", gulp.series("step.mainbuild", "css", "html"));
 gulp.task("build", gulp.series("utils.cleanup", "step.all", "step.postbuild"));
 
-// Builds everything (standalone-beta)
-gulp.task(
-    "step.standalone-beta.code",
-    gulp.series("sounds.fullbuildHQ", "translations.fullBuild", "js.standalone-beta")
-);
-gulp.task("step.standalone-beta.mainbuild", gulp.parallel("step.baseResources", "step.standalone-beta.code"));
-gulp.task(
-    "step.standalone-beta.all",
-    gulp.series("step.standalone-beta.mainbuild", "css.standalone", "html.standalone-beta")
-);
-gulp.task(
-    "build.standalone-beta",
-    gulp.series("utils.cleanup", "step.standalone-beta.all", "step.postbuild")
-);
-
 // Builds everything (standalone-prod)
 gulp.task(
     "step.standalone.code",
