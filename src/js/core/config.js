@@ -1,5 +1,3 @@
-import { queryParamOptions } from "./query_parameters";
-
 export const IS_DEBUG =
     G_IS_DEV &&
     typeof window !== "undefined" &&

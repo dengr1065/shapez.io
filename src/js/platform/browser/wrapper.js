@@ -1,6 +1,5 @@
 import { globalConfig, IS_MOBILE } from "../../core/config";
 import { createLogger } from "../../core/logging";
-import { queryParamOptions } from "../../core/query_parameters";
 import { clamp } from "../../core/utils";
 import { PlatformWrapperInterface } from "../wrapper";
 import { StorageImplBrowser } from "./storage";
@@ -11,59 +10,6 @@ const logger = createLogger("platform/browser");
 export class PlatformWrapperImplBrowser extends PlatformWrapperInterface {
     initialize() {
         this.recaptchaTokenCallback = null;
-
-        this.embedProvider = {
-            id: "shapezio-website",
-            iframed: false,
-            externalLinks: true,
-            iogLink: true
-        };
-
-        if (!G_IS_STANDALONE && queryParamOptions.embedProvider) {
-            const providerId = queryParamOptions.embedProvider;
-            this.embedProvider.iframed = true;
-            this.embedProvider.iogLink = false;
-
-            switch (providerId) {
-                case "armorgames": {
-                    this.embedProvider.id = "armorgames";
-                    break;
-                }
-
-                case "iogames.space": {
-                    this.embedProvider.id = "iogames.space";
-                    this.embedProvider.iogLink = true;
-                    break;
-                }
-
-                case "miniclip": {
-                    this.embedProvider.id = "miniclip";
-                    break;
-                }
-
-                case "gamedistribution": {
-                    this.embedProvider.id = "gamedistribution";
-                    this.embedProvider.externalLinks = false;
-                    break;
-                }
-
-                case "kongregate": {
-                    this.embedProvider.id = "kongregate";
-                    break;
-                }
-
-                case "crazygames": {
-                    this.embedProvider.id = "crazygames";
-                    break;
-                }
-
-                default: {
-                    logger.error("Got unsupported embed provider:", providerId);
-                }
-            }
-        }
-
-        logger.log("Embed provider:", this.embedProvider.id);
 
         return this.detectStorageImplementation()
             .then(() => super.initialize());
@@ -105,7 +51,7 @@ export class PlatformWrapperImplBrowser extends PlatformWrapperInterface {
     }
 
     getId() {
-        return "browser@" + this.embedProvider.id;
+        return "browser";
     }
 
     getUiScale() {
@@ -127,15 +73,7 @@ export class PlatformWrapperImplBrowser extends PlatformWrapperInterface {
 
     openExternalLink(url, force = false) {
         logger.log("Opening external:", url);
-        if (force || this.embedProvider.externalLinks) {
-            window.open(url);
-        } else {
-            // Do nothing
-            alert(
-                "This platform does not allow opening external links. You can play on https://shapez.io directly to open them.\n\nClicked Link: " +
-                url
-            );
-        }
+        window.open(url);
     }
 
     performRestart() {

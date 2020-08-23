@@ -36,7 +36,6 @@ import { HUDColorBlindHelper } from "./parts/color_blind_helper";
 import { HUDShapeViewer } from "./parts/shape_viewer";
 import { HUDWiresOverlay } from "./parts/wires_overlay";
 import { HUDChangesDebugger } from "./parts/debug_changes";
-import { queryParamOptions } from "../../core/query_parameters";
 import { HUDSandboxController } from "./parts/sandbox_controller";
 import { HUDWiresToolbar } from "./parts/wires_toolbar";
 import { HUDWireInfo } from "./parts/wire_info";
@@ -112,20 +111,22 @@ export class GameHUD {
             this.parts.changesDebugger = new HUDChangesDebugger(this.root);
         }
 
-        if (this.root.app.settings.getAllSettings().offerHints) {
+        const appSettings = this.root.app.settings.getAllSettings();
+
+        if (appSettings.offerHints) {
             this.parts.tutorialHints = new HUDPartTutorialHints(this.root);
             this.parts.interactiveTutorial = new HUDInteractiveTutorial(this.root);
         }
 
-        if (this.root.app.settings.getAllSettings().vignette) {
+        if (appSettings.vignette) {
             this.parts.vignetteOverlay = new HUDVignetteOverlay(this.root);
         }
 
-        if (this.root.app.settings.getAllSettings().enableColorBlindHelper) {
+        if (appSettings.enableColorBlindHelper) {
             this.parts.colorBlindHelper = new HUDColorBlindHelper(this.root);
         }
 
-        if (queryParamOptions.sandboxMode || G_IS_DEV) {
+        if (appSettings.sandboxMode) {
             this.parts.sandboxController = new HUDSandboxController(this.root);
         }
 

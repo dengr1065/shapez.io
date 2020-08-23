@@ -767,6 +767,11 @@ settings:
             description: >-
                 Enables various tools which allow you to play the game if you are color blind.
 
+        sandboxMode:
+            title: Sandbox Mode
+            description: >-
+                Allows you to play the game without actually playing. Press F6 to toggle in the game.
+
         fullscreen:
             title: Fullscreen
             description: >-

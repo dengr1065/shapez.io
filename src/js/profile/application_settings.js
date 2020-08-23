@@ -6,7 +6,7 @@ import { ReadWriteProxy } from "../core/read_write_proxy";
 import { BoolSetting, EnumSetting, BaseSetting } from "./setting_types";
 import { createLogger } from "../core/logging";
 import { ExplainedResult } from "../core/explained_result";
-import { THEMES, THEME, applyGameTheme } from "../game/theme";
+import { THEMES, applyGameTheme } from "../game/theme";
 import { T } from "../translations";
 import { LANGUAGES } from "../languages";
 
@@ -187,6 +187,15 @@ export const allApplicationSettings = [
         (app, value) => null
     ),
 
+    new BoolSetting(
+        "sandboxMode",
+        enumCategories.general,
+        /**
+         * @param {Application} app
+         */
+        (app, value) => null
+    ),
+
     new BoolSetting("offerHints", enumCategories.userInterface, (app, value) => { }),
 
     new EnumSetting("theme", {
@@ -288,6 +297,7 @@ class SettingsStorage {
         this.rotationByBuilding = true;
 
         this.enableColorBlindHelper = false;
+        this.sandboxMode = false;
 
         this.lowQualityMapResources = false;
         this.disableTileGrid = false;
@@ -492,7 +502,7 @@ export class ApplicationSettings extends ReadWriteProxy {
     }
 
     getCurrentVersion() {
-        return 21;
+        return 22;
     }
 
     /** @param {{settings: SettingsStorage, version: number}} data */
@@ -583,6 +593,11 @@ export class ApplicationSettings extends ReadWriteProxy {
         if (data.version < 21) {
             data.settings.lowQualityTextures = false;
             data.version = 21;
+        }
+
+        if (data.version < 22) {
+            data.settings.sandboxMode = false;
+            data.version = 22;
         }
 
         return ExplainedResult.good();
