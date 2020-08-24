@@ -19,7 +19,8 @@ const $ = require("gulp-load-plugins")({
 const envVars = [
     "SHAPEZ_CLI_SERVER_HOST",
     "SHAPEZ_CLI_SFTP_USER",
-    "SHAPEZ_CLI_SFTP_PASS"
+    "SHAPEZ_CLI_SFTP_PASS",
+    "SHAPEZ_CLI_SFTP_ROOT"
 ];
 
 for (let i = 0; i < envVars.length; ++i) {

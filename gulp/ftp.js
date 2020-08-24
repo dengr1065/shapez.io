@@ -14,10 +14,11 @@ function gulptasksFTP($, gulp, buildFolder) {
         path.join(additionalFolder, ".*"),
     ];
 
-    const credentials = {
+    const sftpData = {
         host: process.env.SHAPEZ_CLI_SERVER_HOST,
         user: process.env.SHAPEZ_CLI_SFTP_USER,
-        pass: process.env.SHAPEZ_CLI_SFTP_PASS
+        pass: process.env.SHAPEZ_CLI_SFTP_PASS,
+        remotePath: process.env.SHAPEZ_CLI_SFTP_ROOT || "/"
     };
 
     // Write the "commit.txt" file
@@ -52,7 +53,7 @@ function gulptasksFTP($, gulp, buildFolder) {
                     pth.dirname = path.join("v", commitHash, pth.dirname);
                 })
             )
-            .pipe($.sftp(credentials));
+            .pipe($.sftp(sftpData));
     });
 
     gulp.task(`ftp.upload.indexHtml`, () => {
@@ -60,13 +61,13 @@ function gulptasksFTP($, gulp, buildFolder) {
             .src([path.join(buildFolder, "index.html"), path.join(buildFolder, "version.json")], {
                 base: buildFolder
             })
-            .pipe($.sftp(credentials));
+            .pipe($.sftp(sftpData));
     });
 
     gulp.task(`ftp.upload.additionalFiles`, () => {
         return gulp
             .src(additionalFiles, { base: additionalFolder })
-            .pipe($.sftp(credentials));
+            .pipe($.sftp(sftpData));
     });
 
     gulp.task(
