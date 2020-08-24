@@ -3,7 +3,6 @@
 const path = require("path");
 const webpack = require("webpack");
 const { getRevision, getVersion, getAllResourceImages } = require("./buildutils");
-const lzString = require("lz-string");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 
 module.exports = ({ watch = false, standalone = false }) => {
@@ -31,9 +30,6 @@ module.exports = ({ watch = false, standalone = false }) => {
                     "window.assert(false, 'abstract method called of: ' + (this.name || (this.constructor && this.constructor.name)));",
                 G_HAVE_ASSERT: "true",
                 G_APP_ENVIRONMENT: JSON.stringify("dev"),
-                G_TRACKING_ENDPOINT: JSON.stringify(
-                    lzString.compressToEncodedURIComponent("http://localhost:10005/v1")
-                ),
                 G_IS_DEV: "true",
                 G_IS_RELEASE: "false",
                 G_IS_MOBILE_APP: "false",

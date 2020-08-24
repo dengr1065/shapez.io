@@ -14,7 +14,6 @@ declare const G_IS_BROWSER: boolean;
 declare const G_IS_MOBILE_APP: boolean;
 
 declare const G_BUILD_COMMIT_HASH: string;
-declare const G_TRACKING_ENDPOINT: string;
 declare const G_BUILD_VERSION: string;
 declare const G_ALL_UI_IMAGES: Array<string>;
 declare const G_IS_RELEASE: boolean;
@@ -80,7 +79,6 @@ declare interface Window {
 
     // Thirdparty
     XPayStationWidget: any;
-    Sentry: any;
     LogRocket: any;
     grecaptcha: any;
     gtag: any;

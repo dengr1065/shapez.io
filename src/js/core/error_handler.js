@@ -51,29 +51,6 @@ function catchErrors(message, source, lineno, colno, error) {
     console.error("Error:", message, "->", error);
     console.log("Payload:", fullPayload);
 
-    if (window.Sentry && !window.anyModLoaded) {
-        window.Sentry.withScope(scope => {
-            window.Sentry.setTag("message", message);
-            window.Sentry.setTag("source", source);
-
-            window.Sentry.setExtra("message", message);
-            window.Sentry.setExtra("source", source);
-            window.Sentry.setExtra("lineno", lineno);
-            window.Sentry.setExtra("colno", colno);
-            window.Sentry.setExtra("error", error);
-            window.Sentry.setExtra("fullPayload", fullPayload);
-
-            try {
-                const userName = window.localStorage.getItem("tracking_context") || null;
-                window.Sentry.setTag("username", userName);
-            } catch (ex) {
-                // ignore
-            }
-
-            window.Sentry.captureException(error || source);
-        });
-    }
-
     if (APPLICATION_ERROR_OCCURED) {
         console.warn("ERROR: Only showing and submitting first error");
         return;

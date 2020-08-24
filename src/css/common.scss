@@ -674,15 +674,6 @@ iframe {
     z-index: -1;
 }
 
-.sentry-error-embed-wrapper {
-    z-index: 10000;
-    background: rgba(0, 0, 0, 0.9);
-    * {
-        text-shadow: none !important;
-        pointer-events: all;
-    }
-}
-
 .cpmsrendertarget {
     &,
     * {

@@ -24,7 +24,7 @@ export class MetaLeverBuilding extends MetaBuilding {
     }
 
     getIsRotateable() {
-        return false;
+        return true;
     }
 
     getDimensions() {
