@@ -76,7 +76,9 @@ gulp.task("utils.cleanup", gulp.series("utils.cleanBuildFolder", "utils.cleanBui
 
 // Requires no uncomitted files
 gulp.task("utils.requireCleanWorkingTree", cb => {
-    let output = $.trim(execSync("git status -su").toString("ascii")).replace(/\r/gi, "").split("\n");
+    let output = execSync("git status -su", {
+        encoding: "utf-8"
+    }).trim().replace(/\r/gi, "").split("\n");
 
     // Filter files which are OK to be untracked
     output = output
