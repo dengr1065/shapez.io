@@ -4,7 +4,7 @@ $globalBorderRadius: 2px;
 $layoutExpandMinWidth: 340px;
 
 // Font sizes and line heights
-$superHeadingFontSize: 25px;
+$superHeadingFontSize: 24px;
 $superHeadingLineHeight: 24px;
 
 $breakTooltipShowStatsPx: 1023px;
@@ -12,14 +12,14 @@ $breakTooltipShowStatsPx: 1023px;
 $headingFontSize: 19px;
 $headingLineHeight: 21px;
 
-$textFontSize: 16px;
-$textLineHeight: 21px;
+$textFontSize: 14px;
+$textLineHeight: 19px;
 
-$plainTextFontSize: 13px;
-$plainTextLineHeight: 17px;
+$plainTextFontSize: 12px;
+$plainTextLineHeight: 16px;
 
 $supersmallTextFontSize: 10px;
-$supersmallTextLineHeight: 13px;
+$supersmallTextLineHeight: 12px;
 $buttonFontSize: 14px;
 $buttonLineHeight: 18px;
 
@@ -51,15 +51,7 @@ $iconSizeSmall: 30px;
 $iconSizeMedium: 40px;
 $iconSizeLarge: 60px;
 
-// Poppins 500
-// Rubik 400
-// Cairo 400
-// Viga 400
-// Sniglet 400
-
 $mainFont: "GameFont", sans-serif;
-// $mainFont: "DK Canoodle";
-// $mainFont: "MADE Florence Sans";
 $numberFont: $mainFont;
 $textFont: $mainFont;
 

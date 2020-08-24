@@ -60,10 +60,6 @@ standalone.gulptasksStandalone($, gulp);
 const translations = require("./translations");
 translations.gulptasksTranslations($, gulp);
 
-// FIXME
-// const cordova = require("./cordova");
-// cordova.gulptasksCordova($, gulp, buildFolder);
-
 /////////////////////  BUILD TASKS  /////////////////////
 
 // Cleans up everything

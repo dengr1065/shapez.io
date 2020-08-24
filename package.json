@@ -1,5 +1,5 @@
 {
-    "name": "shapez.io",
+    "name": "shapez-fire",
     "version": "0.1.1",
     "repository": "https://github.com/dengr1065/shapez.io",
     "author": "Danyjil Hryhorjev <dengr1065@gmail.com>",
@@ -10,11 +10,7 @@
         "tslint": "cd src/js && tsc",
         "lint": "eslint src/js",
         "prettier-all": "prettier --write src/**/*.* && prettier --write gulp/**/*.*",
-        "publishOnItchWindows": "butler push tmp_standalone_files/shapez.io-standalone-win32-x64 tobspr/shapezio:windows --userversion-file version",
-        "publishOnItchLinux": "butler push tmp_standalone_files/shapez.io-standalone-linux-x64 tobspr/shapezio:linux --userversion-file version",
-        "publishOnItch": "yarn publishOnItchWindows && yarn publishOnItchLinux",
-        "publishWeb": "cd gulp && yarn gulp main.deploy",
-        "publish": "yarn publishStandalone && yarn publishWeb",
+        "publish": "cd gulp && yarn gulp main.deploy",
         "syncTranslations": "node sync-translations.js"
     },
     "dependencies": {
@@ -22,7 +18,6 @@
         "@babel/plugin-transform-block-scoping": "^7.4.4",
         "@babel/plugin-transform-classes": "^7.5.5",
         "@babel/preset-env": "^7.5.4",
-        "@types/cordova": "^0.0.34",
         "@types/filesystem": "^0.0.29",
         "ajv": "^6.10.2",
         "babel-loader": "^8.0.4",
@@ -44,7 +39,6 @@
         "lz-string": "^1.4.4",
         "markdown-loader": "^4.0.0",
         "match-all": "^1.2.5",
-        "phonegap-plugin-mobile-accessibility": "^1.0.5",
         "query-string": "^6.8.1",
         "rusha": "^0.8.13",
         "serialize-error": "^3.0.0",
@@ -60,7 +54,6 @@
         "webpack-deep-scope-plugin": "^1.6.0",
         "webpack-plugin-replace": "^1.1.1",
         "webpack-strip-block": "^0.2.0",
-        "whatwg-fetch": "^3.0.0",
         "worker-loader": "^2.0.0",
         "yaml": "^1.10.0",
         "yawn-yaml": "^1.5.0"

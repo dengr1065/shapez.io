@@ -38,38 +38,11 @@ declare interface Logger {
     error(...args);
 }
 
-// Cordova
-declare interface Device {
-    uuid: string;
-    platform: string;
-    available: boolean;
-    version: string;
-    cordova: string;
-    model: string;
-    manufacturer: string;
-    isVirtual: boolean;
-    serial: string;
-}
-
 declare interface MobileAccessibility {
     usePreferredTextZoom(boolean);
 }
 
 declare interface Window {
-    // Cordova
-    device: Device;
-    StatusBar: any;
-    AndroidFullScreen: any;
-    AndroidNotch: any;
-    plugins: any;
-
-    // Adinplay
-    aiptag: any;
-    adPlayer: any;
-    aipPlayer: any;
-    MobileAccessibility: MobileAccessibility;
-    LocalFileSystem: any;
-
     // Debugging
     activeClickDetectors: Array<any>;
 
@@ -91,8 +64,6 @@ declare interface Window {
     webkitRequestAnimationFrame();
 
     assert(condition: boolean, failureMessage: string);
-
-    coreThreadLoadedCb();
 }
 
 declare interface Navigator {
