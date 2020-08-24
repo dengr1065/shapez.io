@@ -1,8 +1,9 @@
 export const CHANGELOG = [
     {
         version: "0.1.1",
-        date: "unreleased",
+        date: "24.08.2020",
         entries: [
+            "SHAPEZ.IO CHANGELOG / INITIAL RELEASE",
             "WIRES",
             "Reworked menu UI design (by dengr1065)",
             "Allow holding ALT in belt planner to reverse direction (by jakobhellermann)",
