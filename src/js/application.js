@@ -20,7 +20,6 @@ import { AboutState } from "./states/about";
 import { InGameState } from "./states/ingame";
 import { KeybindingsState } from "./states/keybindings";
 import { MainMenuState } from "./states/main_menu";
-import { MobileWarningState } from "./states/mobile_warning";
 import { PreloadState } from "./states/preload";
 import { SettingsState } from "./states/settings";
 
