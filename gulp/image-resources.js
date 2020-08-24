@@ -1,5 +1,15 @@
 // @ts-ignore
 const path = require("path");
+const atlasToJson = require("./atlas2json");
+
+const execute = (command) => {
+    return require("child_process").execSync(command, {
+        encoding: "utf-8"
+    });
+};
+
+// Globs for atlas resources
+const rawImageResourcesGlobs = ["../res_raw/config.json", "../res_raw/**/*.png"];
 
 // Globs for non-ui resources
 const nonImageResourcesGlobs = ["../res/**/*.woff2", "../res/*.ico", "../res/**/*.webm"];
@@ -58,6 +68,22 @@ function gulptasksImageResources($, gulp, buildFolder) {
     }
 
     /////////////// ATLAS /////////////////////
+
+    // Generates the atlas using LibGDX texture packer (requires Java)
+    gulp.task("imgres.buildAtlas", (cb) => {
+        const config = JSON.stringify("../res_raw/config.json");
+        const source = JSON.stringify("../res_raw");
+        const dest = JSON.stringify("../res_built/atlas");
+
+        execute(`java -jar runnable-texturepacker.jar ${source} ${dest} atlas0 ${config}`);
+        cb();
+    });
+
+    // Converts .atlas LibGDX files to JSON
+    gulp.task("imgres.atlasToJson", (cb) => {
+        atlasToJson.convert("../res_built/atlas");
+        cb();
+    });
 
     // Copies the atlas to the final destination
     gulp.task("imgres.atlas", () => {
@@ -133,7 +159,7 @@ function gulptasksImageResources($, gulp, buildFolder) {
                     path.join(buildFolder, "res", "ui", "**", "*.png"),
                     path.join(buildFolder, "res", "ui", "**", "*.jpg"),
                     path.join(buildFolder, "res", "ui", "**", "*.svg"),
-                    path.join(buildFolder, "res", "ui", "**", "*.gif"),
+                    path.join(buildFolder, "res", "ui", "**", "*.gif")
                 ],
                 { read: false }
             )
@@ -142,7 +168,8 @@ function gulptasksImageResources($, gulp, buildFolder) {
 }
 
 module.exports = {
+    rawImageResourcesGlobs,
     nonImageResourcesGlobs,
     imageResourcesGlobs,
-    gulptasksImageResources,
+    gulptasksImageResources
 };

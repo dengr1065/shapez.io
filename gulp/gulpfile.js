@@ -46,7 +46,7 @@ const js = require("./js");
 js.gulptasksJS($, gulp, buildFolder, browserSync);
 
 const html = require("./html");
-html.gulptasksHTML($, gulp, buildFolder, browserSync);
+html.gulptasksHTML($, gulp, buildFolder);
 
 const ftp = require("./ftp");
 ftp.gulptasksFTP($, gulp, buildFolder);
@@ -55,10 +55,10 @@ const docs = require("./docs");
 docs.gulptasksDocs($, gulp, buildFolder);
 
 const standalone = require("./standalone");
-standalone.gulptasksStandalone($, gulp, buildFolder);
+standalone.gulptasksStandalone($, gulp);
 
 const translations = require("./translations");
-translations.gulptasksTranslations($, gulp, buildFolder);
+translations.gulptasksTranslations($, gulp);
 
 // FIXME
 // const cordova = require("./cordova");
@@ -163,10 +163,12 @@ function serve({ standalone }) {
     );
 
     // Watch resource files and copy them on change
+    gulp.watch(imgres.rawImageResourcesGlobs, gulp.series("imgres.buildAtlas"));
     gulp.watch(imgres.nonImageResourcesGlobs, gulp.series("imgres.copyNonImageResources"));
     gulp.watch(imgres.imageResourcesGlobs, gulp.series("imgres.copyImageResources"));
 
     // Watch .atlas files and recompile the atlas on change
+    gulp.watch("../res_built/atlas/*.atlas", gulp.series("imgres.atlasToJson"))
     gulp.watch("../res_built/atlas/*.json", gulp.series("imgres.atlas"));
 
     // Watch the build folder and reload when anything changed
@@ -204,6 +206,8 @@ gulp.task(
     gulp.series(
         "utils.cleanup",
         "utils.copyAdditionalBuildFiles",
+        "imgres.buildAtlas",
+        "imgres.atlasToJson",
         "imgres.atlas",
         "sounds.dev",
         "imgres.copyImageResources",
