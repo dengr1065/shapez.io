@@ -20,7 +20,7 @@ node_modules/
 .yarn-integrity
 
 # Buildfiles
-res_built/atlas
+res_built
 build
 tmp_standalone_files
 
