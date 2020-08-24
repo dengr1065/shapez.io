@@ -13,13 +13,8 @@ import { initGameSpeedRegistry } from "./game/game_speed_registry";
 
 const logger = createLogger("main");
 
-if (window.coreThreadLoadedCb) {
-    logger.log("Javascript parsed, calling html thread");
-    window.coreThreadLoadedCb();
-}
-
 console.log(
-    `%cshapez.io ️%c\n© 2020 Tobias Springer IT Solutions\nCommit %c${G_BUILD_COMMIT_HASH}%c on %c${new Date(
+    `%cshapez#fire ️%c\nCommit %c${G_BUILD_COMMIT_HASH}%c on %c${new Date(
         G_BUILD_TIME
     ).toLocaleString()}\n`,
     "font-size: 35px; font-family: Arial;font-weight: bold; padding: 10px 0;",

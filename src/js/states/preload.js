@@ -230,14 +230,12 @@ export class PreloadState extends GameState {
     showFailMessage(text) {
         logger.error("App init failed:", text);
 
-        const email = "bugs@shapez.io";
-
         const subElement = document.createElement("div");
         subElement.classList.add("failureBox");
 
         subElement.innerHTML = `
                 <div class="logo">
-                    <img src="${cachebust("res/logo.png")}" alt="Shapez.io Logo">
+                    <img src="${cachebust("res/logo.png")}" alt="shapez#fire Logo">
                 </div>
                 <div class="failureInner">
                     <div class="errorHeader">
@@ -246,11 +244,6 @@ export class PreloadState extends GameState {
                     <div class="errorMessage">
                         ${this.currentStatus} failed:<br/>
                         ${text}
-                    </div>
-
-                    <div class="supportHelp">
-                    Please send me an email with steps to reproduce and what you did before this happened:
-                        <br /><a class="email" href="mailto:${email}?subject=App%20does%20not%20launch">${email}</a>
                     </div>
 
                     <div class="lower">

@@ -94,7 +94,7 @@ function gulptasksStandalone($, gulp) {
             asar: true,
             executableName: "shapezio",
             icon: path.join(electronBaseDir, "icon"),
-            name: "shapez.io-standalone",
+            name: "shapez-fire",
             out: tempDestDir,
             overwrite: true,
             appBundleId: "io.shapez.standalone",
@@ -127,15 +127,15 @@ function gulptasksStandalone($, gulp) {
                         // Clear up framework folders
                         fs.writeFileSync(
                             path.join(appPath, "play.sh"),
-                            '#!/usr/bin/env bash\n./shapez.io-standalone.app/Contents/MacOS/shapezio --no-sandbox "$@"\n'
+                            '#!/usr/bin/env bash\n./shapez-fire.app/Contents/MacOS/shapezio --no-sandbox "$@"\n'
                         );
                         fs.chmodSync(path.join(appPath, "play.sh"), 0o775);
                         fs.chmodSync(
-                            path.join(appPath, "shapez.io-standalone.app", "Contents", "MacOS", "shapezio"),
+                            path.join(appPath, "shapez-fire.app", "Contents", "MacOS", "shapezio"),
                             0o775
                         );
 
-                        const finalPath = path.join(appPath, "shapez.io-standalone.app");
+                        const finalPath = path.join(appPath, "shapez-fire.app");
 
                         const frameworksDir = path.join(finalPath, "Contents", "Frameworks");
                         const frameworkFolders = fs

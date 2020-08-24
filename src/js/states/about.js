@@ -15,7 +15,7 @@ export class AboutState extends TextualGameState {
     getMainContentHTML() {
         return `
             <div class="head">
-                <img src="${cachebust("res/logo.png")}" alt="shapez.io Logo">
+                <img src="${cachebust("res/logo.png")}" alt="shapez#fire Logo">
             </div>
             <div class="text">
             ${T.about.body

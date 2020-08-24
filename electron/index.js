@@ -9,7 +9,7 @@ const fs = require("fs");
 const isDev = process.argv.indexOf("--dev") >= 0;
 const isLocal = process.argv.indexOf("--local") >= 0;
 
-const storePath = path.join(app.getPath("appData"), "shapez.io");
+const storePath = path.join(app.getPath("appData"), "shapez-fire");
 const savesDir = path.join(localDataDir, "savegames");
 const screenshotsDir = path.join(localDataDir, "screenshots");
 
@@ -36,7 +36,7 @@ function createWindow() {
         useContentSize: true,
         minWidth: 800,
         minHeight: 600,
-        title: "shapez.io",
+        title: "shapez#fire",
         autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true,
