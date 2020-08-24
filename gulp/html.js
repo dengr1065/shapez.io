@@ -1,20 +1,11 @@
 const buildUtils = require("./buildutils");
 const fs = require("fs");
 const path = require("path");
-const crypto = require("crypto");
-
-function computeIntegrityHash(fullPath, algorithm = "sha256") {
-    const file = fs.readFileSync(fullPath);
-    const hash = crypto.createHash(algorithm).update(file).digest("base64");
-    return algorithm + "-" + hash;
-}
 
 function gulptasksHTML($, gulp, buildFolder) {
     const commitHash = buildUtils.getRevision();
-    async function buildHtml(
-        apiUrl,
-        { standalone = false, app = false, integrity = true, enableCachebust = true }
-    ) {
+
+    async function buildHtml({ standalone = false, app = false, enableCachebust = true }) {
         function cachebust(url) {
             if (enableCachebust) {
                 return buildUtils.cachebust(url, commitHash);
@@ -30,13 +21,6 @@ function gulptasksHTML($, gulp, buildFolder) {
                 $.dom(/** @this {Document} **/ function () {
                     const document = this;
 
-                    // Preconnect to api
-                    const prefetchLink = document.createElement("link");
-                    prefetchLink.rel = "preconnect";
-                    prefetchLink.href = apiUrl;
-                    prefetchLink.setAttribute("crossorigin", "anonymous");
-                    document.head.appendChild(prefetchLink);
-
                     // Append css
                     const css = document.createElement("link");
                     css.rel = "stylesheet";
@@ -44,21 +28,7 @@ function gulptasksHTML($, gulp, buildFolder) {
                     css.media = "none";
                     css.setAttribute("onload", "this.media='all'");
                     css.href = cachebust("main.css");
-                    if (integrity) {
-                        css.setAttribute(
-                            "integrity",
-                            computeIntegrityHash(path.join(buildFolder, "main.css"))
-                        );
-                    }
                     document.head.appendChild(css);
-
-                    if (app) {
-                        // Append cordova link
-                        const cdv = document.createElement("script");
-                        cdv.src = "cordova.js";
-                        cdv.type = "text/javascript";
-                        document.head.appendChild(cdv);
-                    }
 
                     // Do not need to preload in app or standalone
                     if (!hasLocalFiles) {
@@ -79,104 +49,33 @@ function gulptasksHTML($, gulp, buildFolder) {
                         });
                     }
 
-                    const loadingSvg = `background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJtYXJnaW46YXV0bztiYWNrZ3JvdW5kOjAgMCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCIgZGlzcGxheT0iYmxvY2siPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzM5Mzc0NyIgc3Ryb2tlLXdpZHRoPSIzIiByPSI0MiIgc3Ryb2tlLWRhc2hhcnJheT0iMTk3LjkyMDMzNzE3NjE1Njk4IDY3Ljk3MzQ0NTcyNTM4NTY2IiB0cmFuc2Zvcm09InJvdGF0ZSg0OC4yNjUgNTAgNTApIj48YW5pbWF0ZVRyYW5zZm9ybSBhdHRyaWJ1dGVOYW1lPSJ0cmFuc2Zvcm0iIHR5cGU9InJvdGF0ZSIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiIGR1cj0iNS41NTU1NTU1NTU1NTU1NTVzIiB2YWx1ZXM9IjAgNTAgNTA7MzYwIDUwIDUwIiBrZXlUaW1lcz0iMDsxIi8+PC9jaXJjbGU+PC9zdmc+")`;
-
                     const loadingCss = `
                     @font-face {
-                        font-family: 'GameFont';
+                        font-family: "GameFont";
                         font-style: normal;
                         font-weight: normal;
                         font-display: swap;
-                        src: url('${cachebust("res/fonts/FiraMono.woff2")}') format('woff2');
+                        src: url("${cachebust("res/fonts/FiraMono.woff2")}") format("woff2");
                     }
 
-                    #ll_fp {
-                        font-family: GameFont;
-                        font-size: 14px;
-                        position: fixed;
-                        z-index: -1;
-                        top: 0;
-                        left: 0;
-                        opacity: 0.05;
+                    :root {
+                        font-family: "GameFont";
+                        background-color: #222;
+                        color: white;
                     }
-
-                    #ll_p {
-                        display: flex;
-                        position: fixed;
-                        z-index: 99999;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
-                        justify-content:
-                        center;
-                        align-items: center;
-                    }
-
-                    #ll_p > div {
-                        position: absolute;
-                        text-align: center;
-                        bottom: 40px;
-                        left: 20px;
-                        right: 20px;
-                        color: #393747;
-                        font-family: 'GameFont', sans-serif;
-                        font-size: 20px;
-                    }
-
-                    #ll_p > span {
-                        width: 60px;
-                        height: 60px;
-                        display: inline-flex;
-                        background: center center / contain no-repeat;
-                        ${loadingSvg};
-                    }
-                `;
+                    `;
 
                     const style = document.createElement("style");
                     style.setAttribute("type", "text/css");
                     style.textContent = loadingCss;
                     document.head.appendChild(style);
 
-                    // Append loader, but not in standalone (directly include bundle there)
-                    if (standalone) {
-                        const bundleScript = document.createElement("script");
-                        bundleScript.type = "text/javascript";
-                        bundleScript.src = "bundle.js";
-                        if (integrity) {
-                            bundleScript.setAttribute(
-                                "integrity",
-                                computeIntegrityHash(path.join(buildFolder, "bundle.js"))
-                            );
-                        }
-                        document.head.appendChild(bundleScript);
-                    } else {
-                        const loadJs = document.createElement("script");
-                        loadJs.type = "text/javascript";
-                        let scriptContent = "";
-                        scriptContent += `var bundleSrc = '${cachebust("bundle.js")}';\n`;
+                    const bundleScript = document.createElement("script");
+                    bundleScript.type = "text/javascript";
+                    bundleScript.src = "bundle.js";
+                    document.head.appendChild(bundleScript);
 
-                        if (integrity) {
-                            scriptContent +=
-                                "var bundleIntegrity = '" +
-                                computeIntegrityHash(path.join(buildFolder, "bundle.js")) +
-                                "';\n";
-                        } else {
-                            scriptContent += "var bundleIntegrity = null;\n";
-                        }
-
-                        scriptContent += fs.readFileSync("./bundle-loader.js").toString();
-                        loadJs.textContent = scriptContent;
-                        document.head.appendChild(loadJs);
-                    }
-
-                    const bodyContent = `
-                <div id="ll_fp">_</div>
-                <div id="ll_p">
-                    <span></span>
-                    <div>${hasLocalFiles ? "Loading" : "Downloading"} Game Files</div >
-                </div >
-                `;
+                    const bodyContent = `<div>Preparing sources...</div>`;
 
                     document.body.innerHTML = bodyContent;
                 })
@@ -200,26 +99,24 @@ function gulptasksHTML($, gulp, buildFolder) {
     }
 
     gulp.task("html.dev", () => {
-        return buildHtml("http://localhost:5005", {
-            integrity: false,
+        return buildHtml({
             enableCachebust: false
         });
     });
 
     gulp.task("html", () => {
-        return buildHtml("https://analytics.shapez.io", {});
+        return buildHtml({});
     });
 
     gulp.task("html.standalone-dev", () => {
-        return buildHtml("https://localhost:5005", {
+        return buildHtml({
             standalone: true,
-            integrity: false,
             enableCachebust: false
         });
     });
 
     gulp.task("html.standalone", () => {
-        return buildHtml("https://analytics.shapez.io", {
+        return buildHtml({
             standalone: true,
             enableCachebust: false
         });
@@ -227,5 +124,5 @@ function gulptasksHTML($, gulp, buildFolder) {
 }
 
 module.exports = {
-    gulptasksHTML,
+    gulptasksHTML
 };

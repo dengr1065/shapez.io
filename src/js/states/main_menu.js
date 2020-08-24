@@ -101,8 +101,6 @@ export class MainMenuState extends GameState {
                 <div class="sidelinks">
                     <a class="redditLink">${T.mainMenu.subreddit}</a>
 
-                    <a class="changelog">${T.changelog.title}</a>
-
                     <a class="helpTranslate">${T.mainMenu.helpTranslate}</a>
                 </div>
 
@@ -211,7 +209,6 @@ export class MainMenuState extends GameState {
         });
 
         this.trackClicks(qs(".settingsButton"), this.onSettingsButtonClicked);
-        this.trackClicks(qs(".changelog"), this.onChangelogClicked);
         this.trackClicks(qs(".redditLink"), this.onRedditClicked);
         this.trackClicks(qs(".languageChoose"), this.onLanguageChooseClicked);
         this.trackClicks(qs(".helpTranslate"), this.onTranslationHelpLinkClicked);
@@ -293,10 +290,6 @@ export class MainMenuState extends GameState {
 
     onExitAppButtonClicked() {
         this.app.platformWrapper.exitApp();
-    }
-
-    onChangelogClicked() {
-        this.moveToState("ChangelogState");
     }
 
     onRedditClicked() {
