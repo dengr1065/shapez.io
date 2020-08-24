@@ -121,7 +121,6 @@ export class Application {
         /** @type {Array<typeof GameState>} */
         const states = [
             PreloadState,
-            MobileWarningState,
             MainMenuState,
             InGameState,
             SettingsState,
