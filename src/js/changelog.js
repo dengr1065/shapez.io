@@ -1,5 +1,12 @@
 export const CHANGELOG = [
     {
+        version: "0.1.2",
+        date: "unreleased",
+        entries: [
+            "Added Buffer gate"
+        ]
+    },
+    {
         version: "0.1.1",
         date: "24.08.2020",
         entries: [

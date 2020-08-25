@@ -18,6 +18,7 @@ export class LogicGateSystem extends GameSystemWithFilter {
             [enumLogicGateType.xor]: this.compute_XOR.bind(this),
             [enumLogicGateType.or]: this.compute_OR.bind(this),
             [enumLogicGateType.transistor]: this.compute_IF.bind(this),
+            [enumLogicGateType.buffer]: this.compute_BUFFER.bind(this),
 
             [enumLogicGateType.rotater]: this.compute_ROTATE.bind(this),
             [enumLogicGateType.analyzer]: this.compute_ANALYZE.bind(this),
@@ -195,6 +196,15 @@ export class LogicGateSystem extends GameSystemWithFilter {
         }
 
         return null;
+    }
+
+    /**
+     * @param {Array<BaseItem|null>} parameters
+     * @returns {BaseItem}
+     */
+    compute_BUFFER(parameters) {
+        const item = parameters[0];
+        return item;
     }
 
     /**

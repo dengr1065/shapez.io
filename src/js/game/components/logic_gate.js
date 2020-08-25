@@ -7,6 +7,7 @@ export const enumLogicGateType = {
     xor: "xor",
     or: "or",
     transistor: "transistor",
+    buffer: "buffer",
 
     analyzer: "analyzer",
     rotater: "rotater",
