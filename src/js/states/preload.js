@@ -235,7 +235,7 @@ export class PreloadState extends GameState {
 
         subElement.innerHTML = `
                 <div class="logo">
-                    <img src="${cachebust("res/logo.png")}" alt="shapez#fire Logo">
+                    <img src="${cachebust("res/logo.png")}" alt="fluidshapez Logo">
                 </div>
                 <div class="failureInner">
                     <div class="errorHeader">

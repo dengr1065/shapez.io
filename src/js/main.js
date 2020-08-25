@@ -14,7 +14,7 @@ import { initGameSpeedRegistry } from "./game/game_speed_registry";
 const logger = createLogger("main");
 
 console.log(
-    `%cshapez#fire ️%c\nCommit %c${G_BUILD_COMMIT_HASH}%c on %c${new Date(
+    `%cfluidshapez ️%c\nCommit %c${G_BUILD_COMMIT_HASH}%c on %c${new Date(
         G_BUILD_TIME
     ).toLocaleString()}\n`,
     "font-size: 35px; font-family: Arial;font-weight: bold; padding: 10px 0;",

@@ -36,7 +36,7 @@ function createWindow() {
         useContentSize: true,
         minWidth: 800,
         minHeight: 600,
-        title: "shapez#fire",
+        title: "fluidshapez",
         autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true,

@@ -64,7 +64,7 @@ export class MainMenuState extends GameState {
 
 
             <div class="logo">
-                <img src="${cachebust("res/logo.png")}" alt="shapez#fire Logo">
+                <img src="${cachebust("res/logo.png")}" alt="fluidshapez Logo">
                 <span class="updateLabel">Wires update!</span>
             </div>
 
