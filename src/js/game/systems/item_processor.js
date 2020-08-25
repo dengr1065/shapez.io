@@ -361,7 +361,6 @@ export class ItemProcessorSystem extends GameSystemWithFilter {
                     (!skipped[2] && colorBR) ? colorBR.color : null,
                     (!skipped[3] && colorBL) ? colorBL.color : null,
                 ];
-                console.table([colorTL, skipped[0], colorTR, skipped[1]]);
 
                 const colorizedDefinition = this.root.shapeDefinitionMgr.shapeActionPaintWith4Colors(
                     shapeItem.definition,
