@@ -72,6 +72,9 @@ export class DisplaySystem extends GameSystemWithFilter {
                 }
 
                 const value = this.getDisplayItem(network.currentValue);
+                if (value !== entity.components.Display.lastItem) {
+                    chunk.markDirty();
+                }
 
                 if (!value) {
                     continue;
@@ -93,6 +96,8 @@ export class DisplaySystem extends GameSystemWithFilter {
                         30
                     );
                 }
+
+                entity.components.Display.lastItem = value;
             }
         }
     }

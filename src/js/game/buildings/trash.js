@@ -25,7 +25,7 @@ export class MetaTrashBuilding extends MetaBuilding {
         return variant !== defaultBuildingVariant;
     }
 
-    getSilhouetteColor() {
+    getSilhouetteColor(entity) {
         return "#cd7d86";
     }
 

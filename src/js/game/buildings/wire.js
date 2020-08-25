@@ -30,7 +30,7 @@ export class MetaWireBuilding extends MetaBuilding {
         return true;
     }
 
-    getSilhouetteColor() {
+    getSilhouetteColor(entity) {
         return "#25fff2";
     }
 

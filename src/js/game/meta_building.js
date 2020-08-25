@@ -3,9 +3,9 @@ import { AtlasSprite } from "../core/sprites";
 import { Vector } from "../core/vector";
 import { SOUNDS } from "../platform/sound";
 import { StaticMapEntityComponent } from "./components/static_map_entity";
-import { Entity } from "./entity";
 import { GameRoot } from "./root";
 import { getCodeFromBuildingData } from "./building_codes";
+import { Entity } from "./entity";
 
 export const defaultBuildingVariant = "default";
 
@@ -173,9 +173,17 @@ export class MetaBuilding {
     }
 
     /**
-     * Should return a silhouette color for the map overview or null if not set
+     * Returns whether this building has dynamic color on the map view
      */
-    getSilhouetteColor() {
+    getHasDynamicSilhouetteColor() {
+        return false;
+    }
+
+    /**
+     * Should return a silhouette color for the map overview or null if not set
+     * @param {Entity} [entity]
+     */
+    getSilhouetteColor(entity) {
         return null;
     }
 

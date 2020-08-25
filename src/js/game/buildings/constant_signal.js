@@ -10,7 +10,7 @@ export class MetaConstantSignalBuilding extends MetaBuilding {
         super("constant_signal");
     }
 
-    getSilhouetteColor() {
+    getSilhouetteColor(entity) {
         return "#2bafda";
     }
 

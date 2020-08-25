@@ -7,8 +7,8 @@ export class MetaBeltBuilding extends MetaBeltBaseBuilding {
     constructor() {
         super("belt");
     }
-
-    getSilhouetteColor() {
+    
+    getSilhouetteColor(entity) {
         return "#777";
     }
 

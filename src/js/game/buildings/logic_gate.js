@@ -29,7 +29,7 @@ export class MetaLogicGateBuilding extends MetaBuilding {
         super("logic_gate");
     }
 
-    getSilhouetteColor() {
+    getSilhouetteColor(entity) {
         return "#89dc60";
     }
 

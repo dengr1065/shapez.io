@@ -27,7 +27,7 @@ export class MetaVirtualProcessorBuilding extends MetaBuilding {
         super("virtual_processor");
     }
 
-    getSilhouetteColor() {
+    getSilhouetteColor(entity) {
         return "#823cab";
     }
 

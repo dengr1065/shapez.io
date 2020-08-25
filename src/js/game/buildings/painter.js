@@ -33,7 +33,7 @@ export class MetaPainterBuilding extends MetaBuilding {
         }
     }
 
-    getSilhouetteColor() {
+    getSilhouetteColor(entity) {
         return "#cd9b7d";
     }
 

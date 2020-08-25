@@ -4,13 +4,34 @@ import { Entity } from "../entity";
 import { MetaBuilding } from "../meta_building";
 import { GameRoot } from "../root";
 import { DisplayComponent } from "../components/display";
+import { BOOL_TRUE_SINGLETON } from "../items/boolean_item";
+import { enumColorsToHexCode, enumColors } from "../colors";
+import { ColorItem } from "../items/color_item";
 
 export class MetaDisplayBuilding extends MetaBuilding {
     constructor() {
         super("display");
     }
 
-    getSilhouetteColor() {
+    /**
+     * @param {Entity?} entity
+     */
+    getSilhouetteColor(entity) {
+        if (entity) {
+            const pinsComp = entity.components.WiredPins;
+            const network = pinsComp.slots[0].linkedNetwork;
+
+            if (network && network.currentValue) {
+                if (network.currentValue.equals(BOOL_TRUE_SINGLETON)) {
+                    return enumColorsToHexCode[enumColors.white];
+                }
+
+                if (network.currentValue instanceof ColorItem) {
+                    return enumColorsToHexCode[network.currentValue.color];
+                }
+            }
+        }
+
         return "#aaaaaa";
     }
 
@@ -46,6 +67,6 @@ export class MetaDisplayBuilding extends MetaBuilding {
                 ],
             })
         );
-        entity.addComponent(new DisplayComponent());
+        entity.addComponent(new DisplayComponent({}));
     }
 }

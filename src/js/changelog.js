@@ -3,7 +3,8 @@ export const CHANGELOG = [
         version: "0.1.2",
         date: "unreleased",
         entries: [
-            "Added Buffer gate"
+            "Added Buffer gate",
+            "Displays also represent their state on map view (buggy!)"
         ]
     },
     {

@@ -10,7 +10,7 @@ export class MetaLeverBuilding extends MetaBuilding {
         super("lever");
     }
 
-    getSilhouetteColor() {
+    getSilhouetteColor(entity) {
         // @todo: Render differently based on if its activated or not
         return "#1a678b";
     }
