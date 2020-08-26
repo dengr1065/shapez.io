@@ -8,6 +8,7 @@ import { Vector } from "../../../core/vector";
 import { makeOffscreenBuffer } from "../../../core/buffer_utils";
 import { DrawParameters } from "../../../core/draw_parameters";
 import { Rectangle } from "../../../core/rectangle";
+import { enumNotificationType } from "./notifications";
 
 const logger = createLogger("screenshot_exporter");
 
@@ -82,7 +83,7 @@ export class HUDScreenshotExporter extends BaseHUDPart {
         const parameters = new DrawParameters({
             context,
             visibleRect,
-            desiredAtlasScale: "1",
+            desiredAtlasScale: "0.75",
             root: this.root,
             zoomLevel: chunkScale,
         });
@@ -96,11 +97,42 @@ export class HUDScreenshotExporter extends BaseHUDPart {
 
         // Offer export
         logger.log("Rendered buffer, exporting ...");
-        const image = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-        link.download = "base.png";
-        link.href = image;
-        link.click();
+
+        if (G_IS_STANDALONE) {
+            // send screenshot to brazil (aka main process)
+            canvas.toBlob(async blob => {
+                const date = (new Date())
+                    .toISOString()
+                    .split(":")
+                    .join("-");
+
+                this.root.app.storage
+                    .writeFileAsync(
+                        `base-${date}.png`,
+                        new Uint8Array(await (blob.arrayBuffer())),
+                        ["screenshots"]
+                    )
+                    .then(() => {
+                        this.root.hud.signals.notification.dispatch(
+                            "Screenshot saved!",
+                            enumNotificationType.saved
+                        );
+                    })
+                    .catch(() => {
+                        this.root.hud.signals.notification.dispatch(
+                            "Failed to save screenshot!",
+                            enumNotificationType.saved
+                        )
+                    });
+            }, "image/png");
+        } else {
+            const image = canvas.toDataURL("image/png");
+            const link = document.createElement("a");
+            link.download = "base.png";
+            link.href = image;
+            link.click();
+        }
+
         logger.log("Done!");
     }
 }

@@ -1,19 +1,13 @@
-/* eslint-disable quotes,no-undef */
-
-const { app, BrowserWindow, Menu, MenuItem } = require("electron");
+const { app, shell, ipcMain, BrowserWindow, Menu, MenuItem } = require("electron");
 const path = require("path");
 const url = require("url");
-const childProcess = require("child_process");
-const { ipcMain } = require("electron");
 const fs = require("fs");
 const isDev = process.argv.indexOf("--dev") >= 0;
 const isLocal = process.argv.indexOf("--local") >= 0;
 
-const storePath = path.join(app.getPath("appData"), "shapez-fire");
-const savesDir = path.join(localDataDir, "savegames");
-const screenshotsDir = path.join(localDataDir, "screenshots");
-
-const temporaryDir = fs.mkdtempSync("shapezio");
+const storePath = path.join(app.getPath("appData"), "fluidshapez");
+const savesDir = path.join(storePath, "savegames");
+const screenshotsDir = path.join(storePath, "screenshots");
 
 [savesDir, screenshotsDir].forEach(dir => {
     if (!fs.existsSync(dir)) {
@@ -23,9 +17,46 @@ const temporaryDir = fs.mkdtempSync("shapezio");
     }
 });
 
+function openExternalURL(url) {
+    shell.openExternal(url, {
+        activate: true
+    });
+}
+
 /** @type {BrowserWindow} */
 let win = null;
 let menu = null;
+
+function prepareMenu() {
+    if (!isDev) {
+        return null;
+    }
+
+    menu = new Menu();
+
+    const mainItem = new MenuItem({
+        label: "Toggle Dev Tools",
+        click: () => win.toggleDevTools(),
+        accelerator: "F12"
+    });
+    menu.append(mainItem);
+
+    const reloadItem = new MenuItem({
+        label: "Restart",
+        click: () => win.reload(),
+        accelerator: "F5"
+    });
+    menu.append(reloadItem);
+
+    const fullscreenItem = new MenuItem({
+        label: "Fullscreen",
+        click: () => win.setFullScreen(!win.isFullScreen()),
+        accelerator: "F11"
+    });
+    menu.append(fullscreenItem);
+
+    return menu;
+}
 
 function createWindow() {
     win = new BrowserWindow({
@@ -61,11 +92,7 @@ function createWindow() {
 
     win.webContents.on("new-window", (event, pth) => {
         event.preventDefault();
-        if (process.platform == "win32") {
-            childProcess.execSync("start " + pth);
-        } else if (process.platform == "linux") {
-            childProcess.execSync("xdg-open " + pth);
-        }
+        openExternalURL(pth);
     });
 
     win.on("closed", () => {
@@ -74,34 +101,7 @@ function createWindow() {
         app.quit();
     });
 
-    if (isDev) {
-        menu = new Menu();
-
-        const mainItem = new MenuItem({
-            label: "Toggle Dev Tools",
-            click: () => win.toggleDevTools(),
-            accelerator: "F12"
-        });
-        menu.append(mainItem);
-
-        const reloadItem = new MenuItem({
-            label: "Restart",
-            click: () => win.reload(),
-            accelerator: "F5"
-        });
-        menu.append(reloadItem);
-
-        const fullscreenItem = new MenuItem({
-            label: "Fullscreen",
-            click: () => win.setFullScreen(!win.isFullScreen()),
-            accelerator: "F11"
-        });
-        menu.append(fullscreenItem);
-
-        Menu.setApplicationMenu(menu);
-    } else {
-        Menu.setApplicationMenu(null);
-    }
+    Menu.setApplicationMenu(prepareMenu());
 
     win.once("ready-to-show", () => {
         win.show();
@@ -140,7 +140,7 @@ ipcMain.on("exit-app", (event, flag) => {
 });
 
 function performFsJob(job) {
-    let fname = path.join(storePath, job.filename);
+    let fname = path.join(storePath, ...(job.path || []), job.filename);
 
     switch (job.type) {
         case "read": {
@@ -167,10 +167,7 @@ function performFsJob(job) {
         }
         case "write": {
             try {
-                const tmpName = path.join(temporaryDir, path.basename(fname));
-                fs.writeFileSync(tmpName, job.contents);
-
-                fs.renameSync(tmpName, fname);
+                fs.writeFileSync(fname, job.contents);
             } catch (ex) {
                 return {
                     error: ex
@@ -182,7 +179,6 @@ function performFsJob(job) {
                 data: job.contents
             };
         }
-
         case "delete": {
             try {
                 fs.unlinkSync(fname);
@@ -195,6 +191,14 @@ function performFsJob(job) {
             return {
                 success: true,
                 data: null
+            };
+        }
+        case "reveal": {
+            shell.showItemInFolder(fname);
+
+            return {
+                success: true,
+                data: job.contents
             };
         }
 

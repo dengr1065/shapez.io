@@ -7,3 +7,9 @@ Math.radians = function (degrees) {
 Math.degrees = function (radians) {
     return (radians * 180.0) / Math.PI;
 };
+
+if (!String.prototype.replaceAll) {
+    String.prototype.replaceAll = function (src, target) {
+        return this.split(src).join(target);
+    };
+}

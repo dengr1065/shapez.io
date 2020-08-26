@@ -24,6 +24,8 @@ export class StorageImplElectron extends StorageInterface {
             } else {
                 reject(arg.result.error);
             }
+
+            delete this.jobs[id];
         });
     }
 
@@ -31,7 +33,7 @@ export class StorageImplElectron extends StorageInterface {
         return Promise.resolve();
     }
 
-    writeFileAsync(filename, contents) {
+    writeFileAsync(filename, contents, path) {
         return new Promise((resolve, reject) => {
             // ipcMain
             const jobId = ++this.jobId;
@@ -41,20 +43,22 @@ export class StorageImplElectron extends StorageInterface {
                 type: "write",
                 filename,
                 contents,
-                id: jobId,
+                path,
+                id: jobId
             });
         });
     }
 
-    writeFileSyncIfSupported(filename, contents) {
+    writeFileSyncIfSupported(filename, contents, path) {
         return getIPCRenderer().sendSync("fs-sync-job", {
             type: "write",
             filename,
             contents,
+            path
         });
     }
 
-    readFileAsync(filename) {
+    readFileAsync(filename, path) {
         return new Promise((resolve, reject) => {
             // ipcMain
             const jobId = ++this.jobId;
@@ -63,12 +67,13 @@ export class StorageImplElectron extends StorageInterface {
             getIPCRenderer().send("fs-job", {
                 type: "read",
                 filename,
-                id: jobId,
+                path,
+                id: jobId
             });
         });
     }
 
-    deleteFileAsync(filename) {
+    deleteFileAsync(filename, path) {
         return new Promise((resolve, reject) => {
             // ipcMain
             const jobId = ++this.jobId;
@@ -76,7 +81,22 @@ export class StorageImplElectron extends StorageInterface {
             getIPCRenderer().send("fs-job", {
                 type: "delete",
                 filename,
-                id: jobId,
+                path,
+                id: jobId
+            });
+        });
+    }
+
+    revealFileAsync(filename, path) {
+        return new Promise((resolve, reject) => {
+            // ipcMain
+            const jobId = ++this.jobId;
+            this.jobs[jobId] = { resolve, reject };
+            getIPCRenderer().send("fs-job", {
+                type: "reveal",
+                filename,
+                path,
+                id: jobId
             });
         });
     }

@@ -136,7 +136,8 @@ export class ReadWriteProxy {
         return asyncCompressor
             .compressObjectAsync(this.currentData)
             .then(compressed => {
-                return this.app.storage.writeFileAsync(this.filename, compressed);
+                const filepath = this.filename.startsWith("savegame-") ? ["savegames"] : null;
+                return this.app.storage.writeFileAsync(this.filename, compressed, filepath);
             })
             .then(() => {
                 logger.log("📄 Wrote", this.filename);
@@ -152,7 +153,8 @@ export class ReadWriteProxy {
         // Start read request
         return (
             this.app.storage
-                .readFileAsync(this.filename)
+                .readFileAsync(this.filename,
+                    this.filename.startsWith("savegame-") ? ["savegames"] : null)
 
                 // Check for errors during read
                 .catch(err => {

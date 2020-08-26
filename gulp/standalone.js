@@ -3,7 +3,6 @@ const path = require("path");
 const { getVersion } = require("./buildutils");
 const fs = require("fs");
 const fse = require("fs-extra");
-const execSync = require("child_process").execSync;
 
 function gulptasksStandalone($, gulp) {
     const electronBaseDir = path.join(__dirname, "..", "electron");
@@ -54,19 +53,9 @@ function gulptasksStandalone($, gulp) {
         return gulp.src("../build/**/*.*", { base: "../build" }).pipe(gulp.dest(tempDestBuildDir));
     });
 
-    gulp.task("standalone.killRunningInstances", cb => {
-        try {
-            execSync("taskkill /F /IM shapezio.exe");
-        } catch (ex) {
-            console.warn("Failed to kill running instances, maybe none are up.");
-        }
-        cb();
-    });
-
     gulp.task(
         "standalone.prepare",
         gulp.series(
-            "standalone.killRunningInstances",
             "standalone.prepare.cleanup",
             "standalone.prepare.copyPrefab",
             "standalone.prepare.writePackageJson",
@@ -82,22 +71,20 @@ function gulptasksStandalone($, gulp) {
      * @param {function():void} cb
      */
     function packageStandalone(platform, arch, cb) {
-        const tomlFile = fs.readFileSync(path.join(__dirname, ".itch.toml"));
-
         packager({
             dir: tempDestBuildDir,
-            appCopyright: "Tobias Springer",
+            appCopyright: "Danyjil Hryhorjev",
             appVersion: getVersion(),
             buildVersion: "1.0.0",
             arch,
             platform,
             asar: true,
-            executableName: "shapezio",
+            executableName: "fluidshapez",
             icon: path.join(electronBaseDir, "icon"),
-            name: "shapez-fire",
+            name: "fluidshapez",
             out: tempDestDir,
             overwrite: true,
-            appBundleId: "io.shapez.standalone",
+            appBundleId: "io.fluidshapez.standalone",
             appCategoryType: "public.app-category.games",
         }).then(
             appPaths => {
@@ -113,12 +100,10 @@ function gulptasksStandalone($, gulp) {
                         fs.readFileSync(path.join(__dirname, "..", "LICENSE"))
                     );
 
-                    fs.writeFileSync(path.join(appPath, ".itch.toml"), tomlFile);
-
                     if (platform === "linux") {
                         fs.writeFileSync(
                             path.join(appPath, "play.sh"),
-                            '#!/usr/bin/env bash\n./shapezio --no-sandbox "$@"\n'
+                            '#!/usr/bin/env bash\n./fluidshapez --no-sandbox "$@"\n'
                         );
                         fs.chmodSync(path.join(appPath, "play.sh"), 0o775);
                     }
@@ -127,15 +112,15 @@ function gulptasksStandalone($, gulp) {
                         // Clear up framework folders
                         fs.writeFileSync(
                             path.join(appPath, "play.sh"),
-                            '#!/usr/bin/env bash\n./shapez-fire.app/Contents/MacOS/shapezio --no-sandbox "$@"\n'
+                            '#!/usr/bin/env bash\n./fluidshapez.app/Contents/MacOS/fluidshapez --no-sandbox "$@"\n'
                         );
                         fs.chmodSync(path.join(appPath, "play.sh"), 0o775);
                         fs.chmodSync(
-                            path.join(appPath, "shapez-fire.app", "Contents", "MacOS", "shapezio"),
+                            path.join(appPath, "fluidshapez.app", "Contents", "MacOS", "fluidshapez"),
                             0o775
                         );
 
-                        const finalPath = path.join(appPath, "shapez-fire.app");
+                        const finalPath = path.join(appPath, "fluidshapez.app");
 
                         const frameworksDir = path.join(finalPath, "Contents", "Frameworks");
                         const frameworkFolders = fs

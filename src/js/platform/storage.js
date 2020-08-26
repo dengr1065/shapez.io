@@ -22,10 +22,11 @@ export class StorageInterface {
     /**
      * Writes a string to a file asynchronously
      * @param {string} filename
-     * @param {string} contents
+     * @param {string|ArrayBuffer} contents
+     * @param {string[]=} path
      * @returns {Promise<void>}
      */
-    writeFileAsync(filename, contents) {
+    writeFileAsync(filename, contents, path = []) {
         abstract;
         return Promise.reject();
     }
@@ -33,9 +34,10 @@ export class StorageInterface {
     /**
      * Tries to write a file synchronously, used in unload handler
      * @param {string} filename
-     * @param {string} contents
+     * @param {string|ArrayBuffer} contents
+     * @param {string[]=} path
      */
-    writeFileSyncIfSupported(filename, contents) {
+    writeFileSyncIfSupported(filename, contents, path = []) {
         abstract;
         return false;
     }
@@ -43,9 +45,10 @@ export class StorageInterface {
     /**
      * Reads a string asynchronously. Returns Promise<FILE_NOT_FOUND> if file was not found.
      * @param {string} filename
+     * @param {string[]=} path
      * @returns {Promise<string>}
      */
-    readFileAsync(filename) {
+    readFileAsync(filename, path = []) {
         abstract;
         return Promise.reject();
     }
@@ -53,10 +56,22 @@ export class StorageInterface {
     /**
      * Tries to delete a file
      * @param {string} filename
+     * @param {string[]=} path
      * @returns {Promise<void>}
      */
-    deleteFileAsync(filename) {
+    deleteFileAsync(filename, path = []) {
         // Default implementation does not allow deleting files
+        return Promise.reject();
+    }
+
+    /**
+     * Reveals a file in file manager
+     * @param {string} filename
+     * @param {string[]=} path
+     * @returns {Promise<void>}
+     */
+    revealFileAsync(filename, path = []) {
+        // Default implementation does not allow revealing files
         return Promise.reject();
     }
 }

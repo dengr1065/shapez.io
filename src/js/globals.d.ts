@@ -90,6 +90,10 @@ declare interface Object {
     entries(obj: object): Array<[string, any]>;
 }
 
+declare interface String {
+    replaceAll(src: string, target: string): string;
+}
+
 declare interface Math {
     radians(number): number;
     degrees(number): number;
