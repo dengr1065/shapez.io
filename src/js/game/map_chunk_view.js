@@ -94,6 +94,11 @@ export class MapChunkView extends MapChunk {
             originalH: overlaySize,
         });
 
+        if (this.root.currentLayer === "wires") {
+            this.root.systemMgr.systems.lever.drawChunkOverlay(parameters, this);
+            this.root.systemMgr.systems.display.drawChunkOverlay(parameters, this);
+        }
+
         parameters.context.imageSmoothingEnabled = true;
 
         // Draw patch items
@@ -155,7 +160,7 @@ export class MapChunkView extends MapChunk {
                             );
                         }
 
-                        context.fillStyle = metaBuilding.getSilhouetteColor(upperContent);
+                        context.fillStyle = metaBuilding.getSilhouetteColor();
                         for (let dx = 0; dx < 3; ++dx) {
                             for (let dy = 0; dy < 3; ++dy) {
                                 const isFilled = overlayMatrix[dx + dy * 3];
@@ -172,7 +177,7 @@ export class MapChunkView extends MapChunk {
 
                         continue;
                     } else {
-                        context.fillStyle = metaBuilding.getSilhouetteColor(upperContent);
+                        context.fillStyle = metaBuilding.getSilhouetteColor();
                         context.fillRect(
                             x * CHUNK_OVERLAY_RES,
                             y * CHUNK_OVERLAY_RES,
@@ -241,7 +246,7 @@ export class MapChunkView extends MapChunk {
             data.variant,
             entity
         );
-        context.fillStyle = overrideColor || metaBuilding.getSilhouetteColor(entity);
+        context.fillStyle = overrideColor || metaBuilding.getSilhouetteColor();
         if (overlayMatrix) {
             for (let dx = 0; dx < 3; ++dx) {
                 for (let dy = 0; dy < 3; ++dy) {

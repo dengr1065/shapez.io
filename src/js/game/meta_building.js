@@ -173,17 +173,9 @@ export class MetaBuilding {
     }
 
     /**
-     * Returns whether this building has dynamic color on the map view
-     */
-    getHasDynamicSilhouetteColor() {
-        return false;
-    }
-
-    /**
      * Should return a silhouette color for the map overview or null if not set
-     * @param {Entity} [entity]
      */
-    getSilhouetteColor(entity) {
+    getSilhouetteColor() {
         return null;
     }
 

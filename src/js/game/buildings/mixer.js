@@ -18,7 +18,7 @@ export class MetaMixerBuilding extends MetaBuilding {
         return new Vector(2, 1);
     }
 
-    getSilhouetteColor(entity) {
+    getSilhouetteColor() {
         return "#cdbb7d";
     }
 

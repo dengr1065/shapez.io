@@ -20,7 +20,7 @@ export class MetaWireTunnelBuilding extends MetaBuilding {
         super("wire_tunnel");
     }
 
-    getSilhouetteColor(entity) {
+    getSilhouetteColor() {
         return "#777a86";
     }
 

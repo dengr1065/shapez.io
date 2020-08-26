@@ -167,8 +167,6 @@ export function initBuildingCodesAfterResourcesLoaded() {
             variant.rotationVariant,
             variant.variant
         );
-        variant.silhouetteColor = variant.metaInstance.getHasDynamicSilhouetteColor()
-            ? null
-            : variant.metaInstance.getSilhouetteColor();
+        variant.silhouetteColor = variant.metaInstance.getSilhouetteColor();
     }
 }

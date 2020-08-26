@@ -10,7 +10,7 @@ export class LeverSystem extends GameSystemWithFilter {
         super(root, [LeverComponent]);
 
         this.spriteOn = Loader.getSprite("sprites/wires/lever_on.png");
-        this.spriteOff = Loader.getSprite("sprites/buildings/lever.png");
+        this.spriteOff = Loader.getSprite("sprites/wires/lever_off.png");
     }
 
     update() {
@@ -40,6 +40,30 @@ export class LeverSystem extends GameSystemWithFilter {
                 const origin = entity.components.StaticMapEntity.origin;
                 sprite.drawCached(
                     parameters,
+                    origin.x * globalConfig.tileSize,
+                    origin.y * globalConfig.tileSize,
+                    globalConfig.tileSize,
+                    globalConfig.tileSize
+                );
+            }
+        }
+    }
+
+    /**
+     * Draws overlay of a given chunk
+     * @param {import("../../core/draw_utils").DrawParameters} parameters
+     * @param {MapChunkView} chunk
+     */
+    drawChunkOverlay(parameters, chunk) {
+        const contents = chunk.containedEntitiesByLayer.regular;
+        for (let i = 0; i < contents.length; ++i) {
+            const entity = contents[i];
+
+            if (entity && entity.components.Lever && entity.components.Lever.toggled) {
+                const origin = entity.components.StaticMapEntity.origin;
+
+                parameters.context.fillStyle = "#54ee54";
+                parameters.context.fillRect(
                     origin.x * globalConfig.tileSize,
                     origin.y * globalConfig.tileSize,
                     globalConfig.tileSize,

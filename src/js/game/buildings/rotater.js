@@ -17,7 +17,7 @@ export class MetaRotaterBuilding extends MetaBuilding {
         super("rotater");
     }
 
-    getSilhouetteColor(entity) {
+    getSilhouetteColor() {
         return "#7dc6cd";
     }
 

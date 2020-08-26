@@ -40,7 +40,7 @@ export class MetaSplitterBuilding extends MetaBuilding {
         return [[T.ingame.buildingPlacement.infoTexts.speed, formatItemsPerSecond(speed)]];
     }
 
-    getSilhouetteColor(entity) {
+    getSilhouetteColor() {
         return "#444";
     }
 

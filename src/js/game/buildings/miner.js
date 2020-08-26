@@ -18,7 +18,7 @@ export class MetaMinerBuilding extends MetaBuilding {
         super("miner");
     }
 
-    getSilhouetteColor(entity) {
+    getSilhouetteColor() {
         return "#b37dcd";
     }
 

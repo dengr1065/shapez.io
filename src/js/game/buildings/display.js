@@ -13,25 +13,7 @@ export class MetaDisplayBuilding extends MetaBuilding {
         super("display");
     }
 
-    /**
-     * @param {Entity?} entity
-     */
-    getSilhouetteColor(entity) {
-        if (entity) {
-            const pinsComp = entity.components.WiredPins;
-            const network = pinsComp.slots[0].linkedNetwork;
-
-            if (network && network.currentValue) {
-                if (network.currentValue.equals(BOOL_TRUE_SINGLETON)) {
-                    return enumColorsToHexCode[enumColors.white];
-                }
-
-                if (network.currentValue instanceof ColorItem) {
-                    return enumColorsToHexCode[network.currentValue.color];
-                }
-            }
-        }
-
+    getSilhouetteColor() {
         return "#aaaaaa";
     }
 

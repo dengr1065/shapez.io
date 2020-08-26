@@ -15,7 +15,7 @@ export class MetaHubBuilding extends MetaBuilding {
         return new Vector(4, 4);
     }
 
-    getSilhouetteColor(entity) {
+    getSilhouetteColor() {
         return "#eb5555";
     }
 

@@ -51,13 +51,13 @@ export class StaticMapEntityComponent extends Component {
      * Returns the silhouette color
      * @returns {string}
      */
-    getSilhouetteColor(entity) {
+    getSilhouetteColor() {
         const data = getBuildingDataFromCode(this.code);
         if (data.silhouetteColor) {
             return data.silhouetteColor;
         }
 
-        return data.metaInstance.getSilhouetteColor(entity);
+        return data.metaInstance.getSilhouetteColor();
     }
 
     /**

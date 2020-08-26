@@ -14,7 +14,7 @@ export class MetaStackerBuilding extends MetaBuilding {
         super("stacker");
     }
 
-    getSilhouetteColor(entity) {
+    getSilhouetteColor() {
         return "#9fcd7d";
     }
 

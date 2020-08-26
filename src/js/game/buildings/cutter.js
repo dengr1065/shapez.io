@@ -17,7 +17,7 @@ export class MetaCutterBuilding extends MetaBuilding {
         super("cutter");
     }
 
-    getSilhouetteColor(entity) {
+    getSilhouetteColor() {
         return "#7dcda2";
     }
 

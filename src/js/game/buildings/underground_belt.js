@@ -38,7 +38,7 @@ export class MetaUndergroundBeltBuilding extends MetaBuilding {
         super("underground_belt");
     }
 
-    getSilhouetteColor(entity) {
+    getSilhouetteColor() {
         return "#222";
     }
 

@@ -13,7 +13,7 @@ export class MetaFilterBuilding extends MetaBuilding {
         super("filter");
     }
 
-    getSilhouetteColor(entity) {
+    getSilhouetteColor() {
         return "#c45c2e";
     }
 

@@ -10,8 +10,7 @@ export class MetaLeverBuilding extends MetaBuilding {
         super("lever");
     }
 
-    getSilhouetteColor(entity) {
-        // @todo: Render differently based on if its activated or not
+    getSilhouetteColor() {
         return "#1a678b";
     }
 
@@ -23,16 +22,8 @@ export class MetaLeverBuilding extends MetaBuilding {
         return true;
     }
 
-    getIsRotateable() {
-        return true;
-    }
-
     getDimensions() {
         return new Vector(1, 1);
-    }
-
-    getSprite() {
-        return null;
     }
 
     getShowWiresLayerPreview() {
