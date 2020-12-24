@@ -10,10 +10,7 @@ export const CHANGELOG = [
     {
         version: "(17) 1.1.0",
         date: "12.25.2020",
-        entries: [
-			"New really interesting game mechanics",
-			"Corrected Erroneous changelog dates",
-		],
+        entries: ["New really interesting game mechanics", "Corrected Erroneous changelog dates"],
     },
     {
         version: "(17) 1.0.0",
