@@ -37,6 +37,11 @@ export class ClientAPI {
         return Boolean(this.token);
     }
 
+    isPuzzleModerator() {
+        /** @todo get from login response */
+        return true;
+    }
+
     /**
      *
      * @param {string} endpoint
@@ -169,7 +174,7 @@ export class ClientAPI {
     }
 
     /**
-     * @param {number} shortKey
+     * @param {string} shortKey
      * @returns {Promise<import("../savegame/savegame_typedefs").PuzzleFullData>}
      */
     apiDownloadPuzzleByKey(shortKey) {
@@ -227,6 +232,16 @@ export class ClientAPI {
                 ...payload,
                 data: compressX64(JSON.stringify(payload.data)),
             },
+        });
+    }
+
+    /**
+     * @returns {Promise<(import("../savegame/savegame_typedefs").PuzzleReport)[]>}
+     */
+    apiListPuzzleReports() {
+        return this._request("/v1/noauth/reports", {}).then(reports => {
+            reports.forEach(r => (r.createdAt = new Date(r.createdAt)));
+            return reports;
         });
     }
 }

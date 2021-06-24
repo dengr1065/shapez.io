@@ -98,4 +98,13 @@ import { MetaBuilding } from "../game/meta_building";
  * }} PuzzleFullData
  */
 
+/**
+ * @typedef {{
+ *   shortKey: string,
+ *   reporterName: string,
+ *   reason: "profane"|"trolling"|"unsolvable",
+ *   createdAt: Date
+ * }} PuzzleReport
+ */
+
 export default {};

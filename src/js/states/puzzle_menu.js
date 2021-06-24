@@ -42,6 +42,11 @@ export class PuzzleMenuState extends TextualGameState {
                 <h1><button class="backButton"></button> ${this.getStateHeaderTitle()}</h1>
 
                 <div class="actions">
+                    ${
+                        this.app.clientApi.isPuzzleModerator()
+                            ? `<button class="styledButton viewPuzzleReports">${T.puzzleMenu.viewPuzzleReports}</button>`
+                            : ""
+                    }
                     <button class="styledButton loadPuzzle">${T.puzzleMenu.loadPuzzle}</button>
                     <button class="styledButton createPuzzle">+ ${T.puzzleMenu.createPuzzle}</button>
                 </div>
@@ -384,6 +389,11 @@ export class PuzzleMenuState extends TextualGameState {
         for (const rootCategory of Object.keys(navigation)) {
             const button = this.htmlElement.querySelector(`[data-root-category="${rootCategory}"]`);
             this.trackClicks(button, () => this.selectRootCategory(rootCategory));
+        }
+
+        const reportsButton = this.htmlElement.querySelector("button.viewPuzzleReports");
+        if (reportsButton) {
+            this.trackClicks(reportsButton, () => this.moveToState("PuzzleReportsState"));
         }
 
         this.trackClicks(this.htmlElement.querySelector("button.createPuzzle"), () => this.createNewPuzzle());
