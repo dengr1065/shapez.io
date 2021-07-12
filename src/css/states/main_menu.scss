@@ -561,10 +561,6 @@
         box-sizing: border-box;
         @include S(grid-gap, 4px);
 
-        &.china {
-            grid-template-columns: auto 1fr;
-        }
-
         .author {
             flex-grow: 1;
             text-align: right;

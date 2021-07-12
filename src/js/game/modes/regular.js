@@ -66,8 +66,6 @@ const preparementShape = "CpRpCp--:SwSwSwSw";
 // Tiers need % of the previous tier as requirement too
 const tierGrowth = 2.5;
 
-const chinaShapes = G_WEGAME_VERSION || G_CHINA_VERSION;
-
 /**
  * Generates all upgrades
  * @returns {Object<string, UpgradeTiers>} */
@@ -146,9 +144,7 @@ function generateUpgrades(limitedVersion = false) {
             {
                 required: [
                     {
-                        shape: chinaShapes
-                            ? "CyCyCyCy:CyCyCyCy:RyRyRyRy:RuRuRuRu"
-                            : "CbRbRbCb:CwCwCwCw:WbWbWbWb",
+                        shape: "CbRbRbCb:CwCwCwCw:WbWbWbWb",
                         amount: 50000,
                     },
                 ],
@@ -207,7 +203,7 @@ function generateUpgrades(limitedVersion = false) {
             {
                 required: [
                     {
-                        shape: chinaShapes ? "CuCuCuCu:CwCwCwCw:Sb--Sr--" : "RpRpRpRp:CwCwCwCw",
+                        shape: "RpRpRpRp:CwCwCwCw",
                         amount: 6500,
                     },
                 ],
@@ -394,7 +390,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
                   // 13
                   // Tunnel Tier 2
                   {
-                      shape: chinaShapes ? "CuCuCuCu:CwCwCwCw:Sb--Sr--" : "RpRpRpRp:CwCwCwCw", // painting t3
+                      shape: "RpRpRpRp:CwCwCwCw", // painting t3
                       required: 3800,
                       reward: enumHubGoalRewards.reward_underground_belt_tier_2,
                   },
@@ -427,9 +423,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
                   // 17
                   // Double painter
                   {
-                      shape: chinaShapes
-                          ? "CyCyCyCy:CyCyCyCy:RyRyRyRy:RuRuRuRu"
-                          : "CbRbRbCb:CwCwCwCw:WbWbWbWb", // miner t4 (two variants)
+                      shape: "CbRbRbCb:CwCwCwCw:WbWbWbWb", // miner t4 (two variants)
                       required: 20000,
                       reward: enumHubGoalRewards.reward_painter_double,
                   },
@@ -469,9 +463,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
                   // 22
                   // Constant signal
                   {
-                      shape: chinaShapes
-                          ? "RrSySrSy:RyCrCwCr:CyCyRyCy"
-                          : "Cg----Cr:Cw----Cw:Sy------:Cy----Cy",
+                      shape: "Cg----Cr:Cw----Cw:Sy------:Cy----Cy",
                       required: 25000,
                       reward: enumHubGoalRewards.reward_constant_signal,
                   },
@@ -479,18 +471,14 @@ export function generateLevelDefinitions(limitedVersion = false) {
                   // 23
                   // Display
                   {
-                      shape: chinaShapes
-                          ? "CrCrCrCr:CwCwCwCw:WwWwWwWw:CrCrCrCr"
-                          : "CcSyCcSy:SyCcSyCc:CcSyCcSy",
+                      shape: "CcSyCcSy:SyCcSyCc:CcSyCcSy",
                       required: 25000,
                       reward: enumHubGoalRewards.reward_display,
                   },
 
                   // 24 Logic gates
                   {
-                      shape: chinaShapes
-                          ? "Su----Su:RwRwRwRw:Cu----Cu:CwCwCwCw"
-                          : "CcRcCcRc:RwCwRwCw:Sr--Sw--:CyCyCyCy",
+                      shape: "CcRcCcRc:RwCwRwCw:Sr--Sw--:CyCyCyCy",
                       required: 25000,
                       reward: enumHubGoalRewards.reward_logic_gates,
                   },

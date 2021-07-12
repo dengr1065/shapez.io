@@ -17,20 +17,6 @@ function gulptasksStandalone($, gulp) {
             electronBaseDir: path.join(__dirname, "..", "electron"),
             steam: true,
         },
-        {
-            tempDestDir: path.join(__dirname, "..", "tmp_standalone_files_china"),
-            suffix: "china",
-            taskPrefix: "china.",
-            electronBaseDir: path.join(__dirname, "..", "electron"),
-            steam: true,
-        },
-        {
-            tempDestDir: path.join(__dirname, "..", "tmp_standalone_files_wegame"),
-            suffix: "wegame",
-            taskPrefix: "wegame.",
-            electronBaseDir: path.join(__dirname, "..", "electron_wegame"),
-            steam: false,
-        },
     ];
 
     for (const { tempDestDir, suffix, taskPrefix, electronBaseDir, steam } of targets) {
@@ -44,8 +30,6 @@ function gulptasksStandalone($, gulp) {
             const requiredFiles = [
                 path.join(electronBaseDir, "node_modules", "**", "*.*"),
                 path.join(electronBaseDir, "node_modules", "**", ".*"),
-                path.join(electronBaseDir, "wegame_sdk", "**", "*.*"),
-                path.join(electronBaseDir, "wegame_sdk", "**", ".*"),
                 path.join(electronBaseDir, "favicon*"),
 
                 // fails on platforms which support symlinks

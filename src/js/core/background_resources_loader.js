@@ -13,8 +13,7 @@ import { cachebust } from "./cachebust";
 const logger = createLogger("background_loader");
 
 export function getLogoSprite() {
-    // @todo: ugh, in a hurry
-    return G_WEGAME_VERSION ? "logo_wegame.png" : G_CHINA_VERSION ? "logo_cn.png" : "logo.png";
+    return "logo.png";
 }
 
 const essentialMainMenuSprites = [

@@ -49,12 +49,7 @@ export class MainMenuState extends GameState {
 
         return `
             <div class="topButtons">
-                ${
-                    G_CHINA_VERSION || G_WEGAME_VERSION
-                        ? ""
-                        : `<button class="languageChoose" data-languageicon="${this.app.settings.getLanguage()}"></button>`
-                }
-
+                <button class="languageChoose" data-languageicon="${this.app.settings.getLanguage()}"></button>
                 <button class="settingsButton"></button>
             ${
                 G_IS_STANDALONE || G_IS_DEV
@@ -71,11 +66,11 @@ export class MainMenuState extends GameState {
 
             <div class="logo">
                 <img src="${cachebust("res/" + getLogoSprite())}" alt="shapez.io Logo">
-                ${G_WEGAME_VERSION ? "" : `<span class="updateLabel">v${G_BUILD_VERSION}!</span>`}
+                <span class="updateLabel">v${G_BUILD_VERSION}!</span>
             </div>
 
             <div class="mainWrapper ${showDemoBadges ? "demo" : "noDemo"}" data-columns="${
-            G_IS_STANDALONE && !G_WEGAME_VERSION ? 2 : showDemoBadges ? 2 : 1
+            G_IS_STANDALONE ? 2 : showDemoBadges ? 2 : 1
         }">
                 <div class="sideContainer">
                     ${showDemoBadges ? `<div class="standaloneBanner">${bannerHtml}</div>` : ""}
@@ -91,13 +86,11 @@ export class MainMenuState extends GameState {
                 </div>
 
                 ${
-                    (!G_WEGAME_VERSION && G_IS_STANDALONE && puzzleDlc) || G_IS_DEV
+                    (G_IS_STANDALONE && puzzleDlc) || G_IS_DEV
                         ? `
                     <div class="puzzleContainer">
                         <img class="dlcLogo" src="${cachebust(
-                            G_CHINA_VERSION || G_WEGAME_VERSION
-                                ? "res/puzzle_dlc_logo_china.png"
-                                : "res/puzzle_dlc_logo.png"
+                            "res/puzzle_dlc_logo.png"
                         )}" alt="shapez.io Logo">
                         <button class="styledButton puzzleDlcPlayButton">${T.mainMenu.play}</button>
                     </div>`
@@ -105,16 +98,14 @@ export class MainMenuState extends GameState {
                 }
 
                 ${
-                    !G_WEGAME_VERSION && G_IS_STANDALONE && !puzzleDlc
+                    G_IS_STANDALONE && !puzzleDlc
                         ? `
                     <div class="puzzleContainer notOwned">
                         <span class="badge">
                             ${T.puzzleMenu.categories.new}
                         </span>
                         <img class="dlcLogo" src="${cachebust(
-                            G_CHINA_VERSION || G_WEGAME_VERSION
-                                ? "res/puzzle_dlc_logo_china.png"
-                                : "res/puzzle_dlc_logo.png"
+                            "res/puzzle_dlc_logo.png"
                         )}" alt="shapez.io Logo">
                         <p>${T.mainMenu.puzzleDlcText}</p>
                         <button class="styledButton puzzleDlcGetButton">${
@@ -128,21 +119,12 @@ export class MainMenuState extends GameState {
                 }
             </div>
 
-            ${
-                G_WEGAME_VERSION
-                    ? "<div class='footer wegame'></div>"
-                    : `
-            <div class="footer ${G_CHINA_VERSION ? "china" : ""} ">
+            <div class="footer">
 
-                ${
-                    G_CHINA_VERSION
-                        ? ""
-                        : `
                 <a class="githubLink boxLink" target="_blank">
                     ${T.mainMenu.openSourceHint}
                     <span class="thirdpartyLogo githubLogo"></span>
-                </a>`
-                }
+                </a>
 
                 <a class="discordLink boxLink" target="_blank">
                     ${T.mainMenu.discordLink}
@@ -150,11 +132,9 @@ export class MainMenuState extends GameState {
                 </a>
 
                 <div class="sidelinks">
-                    ${G_CHINA_VERSION ? "" : `<a class="redditLink">${T.mainMenu.subreddit}</a>`}
-
-                    ${G_CHINA_VERSION ? "" : `<a class="changelog">${T.changelog.title}</a>`}
-
-                    ${G_CHINA_VERSION ? "" : `<a class="helpTranslate">${T.mainMenu.helpTranslate}</a>`}
+                    <a class="redditLink">${T.mainMenu.subreddit}</a>
+                    <a class="changelog">${T.changelog.title}</a>
+                    <a class="helpTranslate">${T.mainMenu.helpTranslate}</a>
                 </div>
 
 
@@ -163,8 +143,6 @@ export class MainMenuState extends GameState {
                     '<a class="producerLink" target="_blank">Tobias Springer</a>'
                 )}</div>
             </div>
-            `
-            }
         `;
     }
 
@@ -278,12 +256,10 @@ export class MainMenuState extends GameState {
 
         this.trackClicks(qs(".settingsButton"), this.onSettingsButtonClicked);
 
-        if (!G_CHINA_VERSION && !G_WEGAME_VERSION) {
-            this.trackClicks(qs(".languageChoose"), this.onLanguageChooseClicked);
-            this.trackClicks(qs(".redditLink"), this.onRedditClicked);
-            this.trackClicks(qs(".changelog"), this.onChangelogClicked);
-            this.trackClicks(qs(".helpTranslate"), this.onTranslationHelpLinkClicked);
-        }
+        this.trackClicks(qs(".languageChoose"), this.onLanguageChooseClicked);
+        this.trackClicks(qs(".redditLink"), this.onRedditClicked);
+        this.trackClicks(qs(".changelog"), this.onChangelogClicked);
+        this.trackClicks(qs(".helpTranslate"), this.onTranslationHelpLinkClicked);
 
         if (G_IS_STANDALONE) {
             this.trackClicks(qs(".exitAppButton"), this.onExitAppButtonClicked);

@@ -29,66 +29,6 @@ function gulptasksJS($, gulp, buildFolder, browserSync) {
             .pipe(gulp.dest(buildFolder));
     });
 
-    //// DEV CHINA
-
-    gulp.task("china.js.dev.watch", () => {
-        return gulp
-            .src("../src/js/main.js")
-            .pipe(
-                $.webpackStream(
-                    requireUncached("./webpack.config.js")({
-                        watch: true,
-                        chineseVersion: true,
-                    })
-                )
-            )
-            .pipe(gulp.dest(buildFolder))
-            .pipe(browserSync.stream());
-    });
-
-    gulp.task("china.js.dev", () => {
-        return gulp
-            .src("../src/js/main.js")
-            .pipe(
-                $.webpackStream(
-                    requireUncached("./webpack.config.js")({
-                        chineseVersion: true,
-                    })
-                )
-            )
-            .pipe(gulp.dest(buildFolder));
-    });
-
-    //// DEV WEGAME
-
-    gulp.task("wegame.js.dev.watch", () => {
-        return gulp
-            .src("../src/js/main.js")
-            .pipe(
-                $.webpackStream(
-                    requireUncached("./webpack.config.js")({
-                        watch: true,
-                        wegameVersion: true,
-                    })
-                )
-            )
-            .pipe(gulp.dest(buildFolder))
-            .pipe(browserSync.stream());
-    });
-
-    gulp.task("wegame.js.dev", () => {
-        return gulp
-            .src("../src/js/main.js")
-            .pipe(
-                $.webpackStream(
-                    requireUncached("./webpack.config.js")({
-                        wegameVersion: true,
-                    })
-                )
-            )
-            .pipe(gulp.dest(buildFolder));
-    });
-
     //// STAGING
 
     gulp.task("js.staging.transpiled", () => {
@@ -216,40 +156,6 @@ function gulptasksJS($, gulp, buildFolder, browserSync) {
                         environment: "prod",
                         es6: true,
                         standalone: true,
-                    })
-                )
-            )
-            .pipe(gulp.dest(buildFolder));
-    });
-
-    gulp.task("china.js.standalone-prod", () => {
-        return gulp
-            .src("../src/js/main.js")
-            .pipe(
-                $.webpackStream(
-                    requireUncached("./webpack.production.config.js")({
-                        enableAssert: false,
-                        environment: "prod",
-                        es6: true,
-                        standalone: true,
-                        chineseVersion: true,
-                    })
-                )
-            )
-            .pipe(gulp.dest(buildFolder));
-    });
-
-    gulp.task("wegame.js.standalone-prod", () => {
-        return gulp
-            .src("../src/js/main.js")
-            .pipe(
-                $.webpackStream(
-                    requireUncached("./webpack.production.config.js")({
-                        enableAssert: false,
-                        environment: "prod",
-                        es6: false,
-                        standalone: true,
-                        wegameVersion: true,
                     })
                 )
             )
